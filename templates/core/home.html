@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Madeiras e Materiais de Construção{% endblock %}
+{% block meta_description %}Madereira São Luiz — Madeiras, pisos, decks e materiais de construção com qualidade e tradição. Faça um orçamento!{% endblock %}
+
+{% block content %}
+
+<!-- ════════════════════════════════════════
+  HERO — CARROSSEL DE BANNERS CONFIGURÁVEL
+══════════════════════════════════════════ -->
+{% if banners %}
+<section class="hero-carousel" aria-label="Banners principais">
+  <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+
+    <!-- Indicadores -->
+    {% if banners|length > 1 %}
+    <div class="carousel-indicators">
+      {% for banner in banners %}
+      <button type="button" data-bs-target="#heroCarousel"
+              data-bs-slide-to="{{ forloop.counter0 }}"
+              {% if forloop.first %}class="active" aria-current="true"{% endif %}
+              aria-label="Banner {{ forloop.counter }}">
+      </button>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Slides -->
+    <div class="carousel-inner">
+      {% for banner in banners %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="hero-slide">
+          <img src="{{ banner.image.url }}" alt="{{ banner.title }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" />
+          <div class="hero-overlay" aria-hidden="true"></div>
+          <div class="hero-content">
+            <div class="container">
+              <div class="hero-text">
+                <p class="eyebrow">Madereira São Luiz</p>
+                <h2>{{ banner.title }}</h2>
+                {% if banner.subtitle %}
+                <p>{{ banner.subtitle }}</p>
+                {% endif %}
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="btn-primary-cta" id="hero-cta-{{ forloop.counter }}">
+                  {{ banner.link_text }} <i class="bi bi-arrow-right"></i>
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Controles prev/next -->
+    {% if banners|length > 1 %}
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <i class="bi bi-chevron-left fs-5" aria-hidden="true"></i>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <i class="bi bi-chevron-right fs-5" aria-hidden="true"></i>
+      <span class="visually-hidden">Próximo</span>
+    </button>
+    {% endif %}
+  </div>
+</section>
+
+{% else %}
+<!-- Fallback quando não há banners cadastrados -->
+<section class="hero-carousel" aria-label="Banner principal">
+  <div class="hero-slide" style="background: linear-gradient(135deg, #1A1A2E 0%, #2C2C4A 100%); min-height:560px; display:flex; align-items:center;">
+    <div class="hero-content">
+      <div class="container">
+        <div class="hero-text">
+          <p class="eyebrow">Bem-vindo</p>
+          <h2>Madeiras de Qualidade<br>para Sua Obra</h2>
+          <p>Tradição e excelência em madeiras para construção civil, marcenaria e acabamentos.</p>
+          <a href="{% url 'core:products' %}" class="btn-primary-cta" id="hero-cta-default">
+            Ver Produtos <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- ════════════════════════════════════════
+  SEÇÃO DE NÚMEROS / CREDIBILIDADE
+══════════════════════════════════════════ -->
+<section class="stats-section" aria-label="Nossos números">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <span class="stat-item__number">20+</span>
+          <span class="stat-item__label">Anos de mercado</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <span class="stat-item__number">5k+</span>
+          <span class="stat-item__label">Clientes atendidos</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <span class="stat-item__number">200+</span>
+          <span class="stat-item__label">Produtos disponíveis</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <span class="stat-item__number">100%</span>
+          <span class="stat-item__label">Qualidade garantida</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+  CATEGORIAS DE PRODUTOS
+══════════════════════════════════════════ -->
+{% if categories %}
+<section class="section-pad-sm" aria-labelledby="categories-title">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title centered" id="categories-title">Nossas Categorias</h2>
+      <p class="section-subtitle mx-auto">Encontre exatamente o que você precisa para sua obra.</p>
+    </div>
+    <div class="row g-4 justify-content-center">
+      {% for category in categories %}
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="{% url 'core:products' %}?categoria={{ category.slug }}"
+           class="category-card" id="category-{{ category.slug }}">
+          {% if category.icon %}
+          <i class="{{ category.icon }}"></i>
+          {% else %}
+          <i class="bi bi-box-seam"></i>
+          {% endif %}
+          <span class="category-card__name">{{ category.name }}</span>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- ════════════════════════════════════════
+  PRODUTOS EM DESTAQUE / PROMOÇÕES
+══════════════════════════════════════════ -->
+{% if featured_products %}
+<section class="section-pad" style="background: var(--color-bg);" aria-labelledby="featured-title">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between mb-5 gap-3">
+      <div>
+        <h2 class="section-title mb-0" id="featured-title">Produtos em Destaque</h2>
+        <p class="section-subtitle mt-3">Seleção especial com as melhores ofertas da semana.</p>
+      </div>
+      <a href="{% url 'core:products' %}" class="btn-outline-cta flex-shrink-0" id="see-all-products-btn">
+        Ver Todos <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+
+    <div class="row g-4">
+      {% for product in featured_products %}
+      <div class="col-sm-6 col-lg-4">
+        <article class="product-card" id="product-{{ product.pk }}">
+          <div class="product-card__image-wrap">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy" />
+            <div class="product-card__badges">
+              {% if product.is_featured %}<span class="badge-featured">⭐ Destaque</span>{% endif %}
+              {% if product.is_promotion %}<span class="badge-promo">🔥 Promoção</span>{% endif %}
+            </div>
+          </div>
+          <div class="product-card__body">
+            {% if product.category %}
+            <span class="product-card__category">{{ product.category.name }}</span>
+            {% endif %}
+            <h3 class="product-card__name">{{ product.name }}</h3>
+            <p class="product-card__desc">{{ product.description }}</p>
+            <div class="product-card__footer">
+              <div class="product-card__price">
+                {% if product.has_discount %}
+                  <span class="old-price">R$ {{ product.price }}/{{ product.unit }}</span>
+                  <span class="current-price">R$ {{ product.promotional_price }}/{{ product.unit }}</span>
+                {% elif product.price %}
+                  <span class="current-price">R$ {{ product.price }}/{{ product.unit }}</span>
+                {% else %}
+                  <span class="consult">Consulte-nos</span>
+                {% endif %}
+              </div>
+              <a href="https://wa.me/5500000000000?text=Olá! Tenho interesse no produto: {{ product.name }}"
+                 class="product-card__cta" target="_blank" rel="noopener noreferrer"
+                 id="product-cta-{{ product.pk }}">
+                <i class="bi bi-whatsapp me-1"></i> Pedir
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- ════════════════════════════════════════
+  DIFERENCIAIS
+══════════════════════════════════════════ -->
+<section class="section-pad-sm" style="background: var(--color-surface);" aria-labelledby="diferenciais-title">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title centered" id="diferenciais-title">Por que escolher a São Luiz?</h2>
+    </div>
+    <div class="row g-4 text-center">
+      <div class="col-md-3">
+        <div class="p-4">
+          <i class="bi bi-patch-check-fill text-warning fs-1 mb-3 d-block"></i>
+          <h5 style="font-family:var(--font-heading); font-weight:700;">Qualidade Certificada</h5>
+          <p class="text-muted small">Produtos selecionados com rigoroso controle de qualidade.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="p-4">
+          <i class="bi bi-truck text-warning fs-1 mb-3 d-block"></i>
+          <h5 style="font-family:var(--font-heading); font-weight:700;">Entrega Rápida</h5>
+          <p class="text-muted small">Entregamos na obra com agilidade e segurança.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="p-4">
+          <i class="bi bi-tag-fill text-warning fs-1 mb-3 d-block"></i>
+          <h5 style="font-family:var(--font-heading); font-weight:700;">Melhor Preço</h5>
+          <p class="text-muted small">Preços competitivos e condições especiais para obra.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="p-4">
+          <i class="bi bi-people-fill text-warning fs-1 mb-3 d-block"></i>
+          <h5 style="font-family:var(--font-heading); font-weight:700;">Atendimento Especializado</h5>
+          <p class="text-muted small">Nossa equipe está pronta para te ajudar a escolher.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+  DEPOIMENTOS
+══════════════════════════════════════════ -->
+{% if testimonials %}
+<section class="section-pad section-dark" aria-labelledby="testimonials-title">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title centered" id="testimonials-title">O que nossos clientes dizem</h2>
+      <p class="section-subtitle mx-auto" style="color: rgba(247,244,239,0.65);">
+        A satisfação dos nossos clientes é nossa maior recompensa.
+      </p>
+    </div>
+    <div class="row g-4">
+      {% for testimonial in testimonials %}
+      <div class="col-md-6 col-lg-4">
+        <article class="testimonial-card" id="testimonial-{{ testimonial.pk }}">
+          <div class="testimonial-card__stars" aria-label="{{ testimonial.rating }} estrelas">
+            {% for star in testimonial.stars_filled %}⭐{% endfor %}
+          </div>
+          <p class="testimonial-card__text">"{{ testimonial.text }}"</p>
+          <footer class="testimonial-card__author">
+            {% if testimonial.photo %}
+            <img src="{{ testimonial.photo.url }}" alt="{{ testimonial.name }}" class="testimonial-card__avatar" />
+            {% else %}
+            <div class="testimonial-card__avatar-placeholder" aria-hidden="true">
+              {{ testimonial.name|first|upper }}
+            </div>
+            {% endif %}
+            <div>
+              <div class="testimonial-card__name">{{ testimonial.name }}</div>
+              {% if testimonial.city %}
+              <div class="testimonial-card__city"><i class="bi bi-geo-alt me-1"></i>{{ testimonial.city }}</div>
+              {% endif %}
+            </div>
+          </footer>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- ════════════════════════════════════════
+  CTA FINAL — ORÇAMENTO
+══════════════════════════════════════════ -->
+<section class="cta-banner" aria-labelledby="cta-title">
+  <div class="container">
+    <h2 id="cta-title">Pronto para começar sua obra?</h2>
+    <p>Entre em contato agora e receba um orçamento personalizado sem compromisso.</p>
+    <div class="d-flex flex-wrap gap-3 justify-content-center">
+      <a href="https://wa.me/5500000000000?text=Olá! Gostaria de um orçamento para minha obra."
+         class="btn-primary-cta" target="_blank" rel="noopener noreferrer" id="cta-whatsapp-final">
+        <i class="bi bi-whatsapp"></i> Solicitar Orçamento pelo WhatsApp
+      </a>
+      <a href="tel:+550000000000" class="btn-outline-cta" id="cta-phone">
+        <i class="bi bi-telephone"></i> Ligar Agora
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

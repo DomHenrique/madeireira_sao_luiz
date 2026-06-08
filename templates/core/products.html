@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Produtos{% endblock %}
+{% block meta_description %}Catálogo completo de madeiras, pisos e materiais da Madereira São Luiz. Filtre por categoria e encontre o produto ideal para sua obra.{% endblock %}
+
+{% block content %}
+
+<!-- ════════════════════════════════════════
+  PAGE HEADER
+══════════════════════════════════════════ -->
+<section style="background: var(--color-accent); padding: 3rem 0;" aria-labelledby="products-page-title">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb" style="font-size:0.875rem;">
+        <li class="breadcrumb-item">
+          <a href="{% url 'core:home' %}" style="color: var(--color-primary-light);">Início</a>
+        </li>
+        <li class="breadcrumb-item active" style="color: rgba(247,244,239,0.65);">
+          {% if active_category %}{{ active_category.name }}{% else %}Todos os Produtos{% endif %}
+        </li>
+      </ol>
+    </nav>
+    <h1 class="section-title" style="color:#fff;" id="products-page-title">
+      {% if active_category %}{{ active_category.name }}{% else %}Nossos Produtos{% endif %}
+    </h1>
+    <p style="color: rgba(247,244,239,0.70); font-size:1.05rem;">
+      {% if active_category %}
+        Mostrando produtos da categoria <strong style="color:var(--color-primary-light);">{{ active_category.name }}</strong>.
+      {% else %}
+        Encontre a madeira ideal para sua obra.
+      {% endif %}
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+  FILTRO DE CATEGORIAS + GRID DE PRODUTOS
+══════════════════════════════════════════ -->
+<section class="section-pad" aria-label="Lista de produtos">
+  <div class="container">
+
+    <!-- Filtro por categoria -->
+    <nav aria-label="Filtrar por categoria">
+      <div class="category-filter">
+        <a href="{% url 'core:products' %}"
+           class="{% if not active_category %}active{% endif %}"
+           id="filter-all">Todos</a>
+        {% for category in categories %}
+        <a href="{% url 'core:products' %}?categoria={{ category.slug }}"
+           class="{% if active_category.pk == category.pk %}active{% endif %}"
+           id="filter-{{ category.slug }}">
+          {% if category.icon %}<i class="{{ category.icon }} me-1"></i>{% endif %}
+          {{ category.name }}
+        </a>
+        {% endfor %}
+      </div>
+    </nav>
+
+    <!-- Grid de produtos -->
+    {% if products %}
+    <div class="row g-4">
+      {% for product in products %}
+      <div class="col-sm-6 col-lg-4 col-xl-3">
+        <article class="product-card" id="product-{{ product.pk }}">
+          <div class="product-card__image-wrap">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy" />
+            <div class="product-card__badges">
+              {% if product.is_featured %}<span class="badge-featured">⭐ Destaque</span>{% endif %}
+              {% if product.is_promotion %}<span class="badge-promo">🔥 Promoção</span>{% endif %}
+            </div>
+          </div>
+          <div class="product-card__body">
+            {% if product.category %}
+            <span class="product-card__category">{{ product.category.name }}</span>
+            {% endif %}
+            <h2 class="product-card__name" style="font-size:1rem;">{{ product.name }}</h2>
+            <p class="product-card__desc">{{ product.description }}</p>
+            <div class="product-card__footer">
+              <div class="product-card__price">
+                {% if product.has_discount %}
+                  <span class="old-price">R$ {{ product.price }}/{{ product.unit }}</span>
+                  <span class="current-price">R$ {{ product.promotional_price }}/{{ product.unit }}</span>
+                {% elif product.price %}
+                  <span class="current-price">R$ {{ product.price }}/{{ product.unit }}</span>
+                {% else %}
+                  <span class="consult">Consulte-nos</span>
+                {% endif %}
+              </div>
+              <a href="https://wa.me/5500000000000?text=Olá! Tenho interesse no produto: {{ product.name }}"
+                 class="product-card__cta" target="_blank" rel="noopener noreferrer"
+                 id="product-cta-{{ product.pk }}">
+                <i class="bi bi-whatsapp me-1"></i> Pedir
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% else %}
+    <!-- Estado vazio -->
+    <div class="text-center py-5" style="color: var(--color-text-muted);">
+      <i class="bi bi-box-seam" style="font-size:4rem; color:var(--color-primary); opacity:0.4;"></i>
+      <h3 class="mt-3" style="font-family:var(--font-heading);">Nenhum produto encontrado</h3>
+      <p>Tente outra categoria ou entre em contato para mais informações.</p>
+      <a href="{% url 'core:products' %}" class="btn-outline-cta mt-2">Ver Todos os Produtos</a>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% endblock %}
