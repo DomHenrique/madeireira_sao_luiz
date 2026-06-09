@@ -2,6 +2,7 @@
 
 from django.shortcuts import get_object_or_404, render
 
+from empresa.models import Unidade
 from .models import Banner, Category, Product, Testimonial
 
 
@@ -11,19 +12,21 @@ def home(request):
     featured_products = Product.objects.filter(active=True, is_featured=True).select_related("category")[:6]
     testimonials = Testimonial.objects.filter(active=True)[:6]
     categories = Category.objects.all()
+    unidades = Unidade.objects.filter(is_active=True).order_by("ordem")
 
     context = {
         "banners": banners,
         "featured_products": featured_products,
         "testimonials": testimonials,
         "categories": categories,
+        "unidades": unidades,
     }
     return render(request, "core/home.html", context)
 
 
-def products(request):
+def products(request, slug=None):
     """Listagem completa de produtos com filtro por categoria."""
-    category_slug = request.GET.get("categoria")
+    category_slug = slug or request.GET.get("categoria")
     all_categories = Category.objects.all()
 
     qs = Product.objects.filter(active=True).select_related("category")

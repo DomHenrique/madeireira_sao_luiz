@@ -5,6 +5,7 @@ Madereira São Luiz
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.urls import reverse
 
 
 class Banner(models.Model):
@@ -109,6 +110,8 @@ class Category(models.Model):
         help_text="Ex.: bi-tree-fill (Bootstrap Icons)"
     )
     order = models.PositiveIntegerField("Ordem", default=0)
+    meta_title = models.CharField("Meta Title (SEO)", max_length=150, blank=True, help_text="Título para o Google. Se vazio, usará o nome da categoria.")
+    meta_description = models.TextField("Meta Description (SEO)", blank=True, help_text="Resumo para o Google (recomendado ~150 caracteres).")
 
     class Meta:
         verbose_name = "Categoria"
@@ -117,6 +120,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("core:category_products", kwargs={"slug": self.slug})
 
 
 class Product(models.Model):
@@ -160,6 +166,8 @@ class Product(models.Model):
         help_text="Exibe badge de PROMOÇÃO no card do produto"
     )
     active = models.BooleanField("Ativo", default=True)
+    meta_title = models.CharField("Meta Title (SEO)", max_length=150, blank=True, help_text="Título para o Google (caso tenha página própria no futuro).")
+    meta_description = models.TextField("Meta Description (SEO)", blank=True, help_text="Resumo para o Google.")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -832,3 +832,158 @@ h1, h2, h3, h4, h5, h6 {
     display: none;
   }
 }
+
+/* =========================================
+   12. SEÇÃO DE LOCALIZAÇÃO (MAPA E CARD)
+   ========================================= */
+.location-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 500px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.location-map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.location-card {
+  position: relative;
+  z-index: 2;
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 420px;
+  margin-left: 3rem; /* Espaço da borda esquerda do mapa no desktop */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.location-card__title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-text);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.location-info {
+  margin-bottom: 2rem;
+}
+
+.location-info__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.location-info__icon {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(201, 138, 108, 0.15); /* Cor de cobre suave baseada no layout */
+  color: #c98a6c;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.location-info__text {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.location-info__text strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.location-info__text p {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.location-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn-location-route {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #c98a6c;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-location-route:hover {
+  background-color: #b57a5e;
+  color: #fff;
+}
+
+.btn-location-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #25D366;
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-location-whatsapp:hover {
+  border-color: #25D366;
+  background-color: rgba(37, 211, 102, 0.05);
+  color: #25D366;
+}
+
+/* Responsividade Mobile para a seção Location */
+@media (max-width: 991px) {
+  .location-wrapper {
+    flex-direction: column;
+    min-height: auto;
+    box-shadow: none;
+  }
+  
+  .location-map {
+    position: relative;
+    height: 400px;
+    order: 2; /* Mapa fica abaixo do card no mobile */
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-top: 1rem;
+  }
+  
+  .location-card {
+    margin-left: 0;
+    max-width: 100%;
+    order: 1;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid #f3f4f6;
+  }
+}

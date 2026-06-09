@@ -37,7 +37,7 @@
             <div class="container">
               <div class="hero-text">
                 <p class="eyebrow">Madereira São Luiz</p>
-                <h2>{{ banner.title }}</h2>
+                <h1>{{ banner.title }}</h1>
                 {% if banner.subtitle %}
                 <p>{{ banner.subtitle }}</p>
                 {% endif %}
@@ -76,7 +76,7 @@
       <div class="container">
         <div class="hero-text">
           <p class="eyebrow">Bem-vindo</p>
-          <h2>Madeiras de Qualidade<br>para Sua Obra</h2>
+          <h1>Madeiras de Qualidade<br>para Sua Obra</h1>
           <p>Tradição e excelência em madeiras para construção civil, marcenaria e acabamentos.</p>
           <a href="{% url 'core:products' %}" class="btn-primary-cta" id="hero-cta-default">
             Ver Produtos <i class="bi bi-arrow-right"></i>
@@ -137,7 +137,7 @@
     <div class="row g-4 justify-content-center">
       {% for category in categories %}
       <div class="col-6 col-md-4 col-lg-2">
-        <a href="{% url 'core:products' %}?categoria={{ category.slug }}"
+        <a href="{{ category.get_absolute_url }}"
            class="category-card" id="category-{{ category.slug }}">
           {% if category.icon %}
           <i class="{{ category.icon }}"></i>
@@ -295,6 +295,120 @@
       </div>
       {% endfor %}
     </div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- ════════════════════════════════════════
+  LOCALIZAÇÃO
+══════════════════════════════════════════ -->
+{% if unidades %}
+<section class="section-pad location-section" aria-labelledby="location-title">
+  <div class="container">
+    
+    {% if unidades|length > 1 %}
+    <!-- Navegação por Abas (quando há mais de uma unidade) -->
+    <div class="text-center mb-4">
+      <p class="eyebrow" style="color: #c98a6c;">NOSSAS LOJAS</p>
+      <h2 class="section-title centered" id="location-title" style="text-transform: uppercase;">ONDE NOS ENCONTRAR</h2>
+    </div>
+    <ul class="nav nav-pills justify-content-center mb-5" id="locationTabs" role="tablist">
+      {% for unidade in unidades %}
+      <li class="nav-item" role="presentation">
+        <button class="nav-link {% if forloop.first %}active{% endif %}" id="tab-{{ unidade.id }}" data-bs-toggle="pill" data-bs-target="#pane-{{ unidade.id }}" type="button" role="tab" aria-controls="pane-{{ unidade.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" style="font-weight: 600; border-radius: 2rem; padding: 0.5rem 1.5rem; margin: 0 0.25rem;">
+          <i class="bi bi-shop me-2"></i>{{ unidade.nome }}
+        </button>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="tab-content" id="locationTabsContent">
+      {% for unidade in unidades %}
+      <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="pane-{{ unidade.id }}" role="tabpanel" aria-labelledby="tab-{{ unidade.id }}" tabindex="0">
+        
+        {% if unidades|length == 1 %}
+        <!-- Títulos customizados só aparecem se houver apenas 1 unidade -->
+        <div class="text-center mb-5">
+          <p class="eyebrow" style="color: #c98a6c;">{{ unidade.title_eyebrow }}</p>
+          <h2 class="section-title centered" id="location-title-{{ unidade.id }}" style="text-transform: uppercase;">{{ unidade.title_main|safe }}</h2>
+        </div>
+        {% endif %}
+
+        <div class="location-wrapper">
+          <div class="location-card">
+            <h3 class="location-card__title">{{ unidade.card_title|default:"VENHA TOMAR UM CAFÉ COM A GENTE!" }}</h3>
+            
+            <div class="location-info">
+              <div class="location-info__item">
+                <div class="location-info__icon">
+                  <i class="bi bi-geo-alt-fill"></i>
+                </div>
+                <div class="location-info__text">
+                  <strong>Endereço</strong>
+                  <p>{{ unidade.endereco }}<br>{{ unidade.cidade }} - {{ unidade.estado }}<br>{{ unidade.cep }}</p>
+                </div>
+              </div>
+
+              {% if unidade.business_hours %}
+              <div class="location-info__item mt-4">
+                <div class="location-info__icon">
+                  <i class="bi bi-clock"></i>
+                </div>
+                <div class="location-info__text">
+                  <strong>Horários</strong>
+                  <p class="mb-0">{{ unidade.business_hours|linebreaksbr }}</p>
+                </div>
+              </div>
+              {% endif %}
+              
+              {% if unidade.telefone or unidade.whatsapp %}
+              <div class="location-info__item mt-4">
+                <div class="location-info__icon">
+                  <i class="bi bi-telephone-fill"></i>
+                </div>
+                <div class="location-info__text">
+                  <strong>Contato</strong>
+                  <p class="mb-0">
+                    {% if unidade.whatsapp %}WhatsApp: {{ unidade.whatsapp }}<br>{% endif %}
+                    {% if unidade.telefone %}Tel: {{ unidade.telefone }}{% endif %}
+                  </p>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+
+            <div class="location-actions">
+              {% if unidade.rota_url %}
+              <a href="{{ unidade.rota_url }}" target="_blank" rel="noopener noreferrer" class="btn-location-route w-100">
+                <i class="bi bi-car-front-fill me-2"></i> Traçar Rota
+              </a>
+              {% endif %}
+              
+              {% if unidade.whatsapp %}
+              <a href="https://wa.me/{{ unidade.whatsapp|cut:' '|cut:'-'|cut:'('|cut:')'|cut:'+' }}?text=Olá! Gostaria de falar com a unidade {{ unidade.nome }}." target="_blank" rel="noopener noreferrer" class="btn-location-whatsapp w-100 mt-2">
+                <i class="bi bi-whatsapp me-2"></i> Falar no WhatsApp
+              </a>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="location-map">
+            {% if unidade.mapa_url %}
+            <iframe src="{{ unidade.mapa_url }}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            {% else %}
+            <div class="map-placeholder d-flex align-items-center justify-content-center bg-light text-muted w-100 h-100 rounded-4">
+              <p>Configure o link do mapa da unidade "{{ unidade.nome }}" no painel administrativo.</p>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+      {% endfor %}
+    </div>
+
   </div>
 </section>
 {% endif %}

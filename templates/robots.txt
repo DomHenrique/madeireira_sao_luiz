@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.madeireirasaoluiz.com.br/sitemap.xml
