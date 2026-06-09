@@ -22,6 +22,21 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-fallback-key-dev")
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
+# CSRF — obrigatório em produção com HTTPS ou proxy reverso (nginx, Cloudflare, etc.)
+# Liste todos os domínios/subdomínios que servem o site, incluindo o protocolo.
+# Ex.: CSRF_TRUSTED_ORIGINS=https://madeireiro1360.com.br,https://www.madeireiro1360.com.br
+_csrf_origins_env = os.environ.get("CSRF_TRUSTED_ORIGINS", "")
+CSRF_TRUSTED_ORIGINS = [o.strip() for o in _csrf_origins_env.split(",") if o.strip()]
+
+# Segurança de cookies — ative em produção (HTTPS obrigatório)
+CSRF_COOKIE_SECURE = os.environ.get("CSRF_COOKIE_SECURE", "False") == "True"
+SESSION_COOKIE_SECURE = os.environ.get("SESSION_COOKIE_SECURE", "False") == "True"
+
+# Necessário quando há proxy reverso que termina o TLS (nginx, Cloudflare, etc.)
+# Informa ao Django que a requisição chegou via HTTPS mesmo que internamente seja HTTP
+if os.environ.get("TRUST_PROXY_SSL", "False") == "True":
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 # ────────────────────────────────────────────────────────────────────────────
 # Installed Apps
 # ────────────────────────────────────────────────────────────────────────────
@@ -179,6 +194,7 @@ JAZZMIN_SETTINGS = {
         "auth.user": "collapsible",
     },
     "language_chooser": False,
+    "custom_css": "css/admin_custom.css",
 }
 
 JAZZMIN_UI_TWEAKS = {

@@ -13,9 +13,40 @@ class Banner(models.Model):
     As imagens são armazenadas no Supabase Storage (em produção)
     ou localmente em media/ (em desenvolvimento).
     """
-    title = models.CharField("Título", max_length=200)
-    subtitle = models.CharField("Subtítulo", max_length=300, blank=True)
-    image = models.ImageField("Imagem", upload_to="banners/")
+    title = models.CharField(
+        "Título",
+        max_length=200,
+        help_text=(
+            "Será exibido em destaque sobre a imagem. "
+            "Use textos curtos e diretos (até 8 palavras) para melhor legibilidade."
+        ),
+    )
+    subtitle = models.CharField(
+        "Subtítulo",
+        max_length=300,
+        blank=True,
+        help_text=(
+            "Texto complementar ao título — máximo 2 linhas. "
+            "Será exibido abaixo do título, ainda sobre a imagem."
+        ),
+    )
+    image = models.ImageField(
+        "Imagem do Banner",
+        upload_to="banners/",
+        help_text=(
+            "📐 TAMANHO RECOMENDADO: 1920 × 580 px (proporção 16:5 — paisagem bem larga). "
+            "📏 MÍNIMO ACEITÁVEL: 1280 × 400 px. "
+            "🗂️ FORMATOS: JPG ou WebP (PNG aceito, mas gera arquivo maior). "
+            "⚠️ ZONA SEGURA DE TEXTO: os textos (Título, Subtítulo e Botão) "
+            "aparecem na metade ESQUERDA da imagem, com overlay escuro. "
+            "Evite colocar elementos importantes (rosto, logotipo, produto) "
+            "nos primeiros 55% da largura a partir da esquerda — "
+            "eles ficarão cobertos pelo texto. "
+            "Prefira imagens com o assunto principal centralizado ou no lado DIREITO. "
+            "Em mobile, o texto é centralizado e cobre maior parte da tela, "
+            "então garanta contraste em toda a imagem."
+        ),
+    )
     link = models.URLField("Link (CTA)", blank=True, help_text="URL para onde o botão do banner levará")
     link_text = models.CharField("Texto do Botão", max_length=80, default="Saiba Mais")
     active = models.BooleanField("Ativo", default=True)
