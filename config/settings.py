@@ -104,6 +104,13 @@ DATABASES = {
 USE_SUPABASE_STORAGE = os.environ.get("USE_SUPABASE_STORAGE", "False") == "True"
 
 if USE_SUPABASE_STORAGE:
+    SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
+    BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "madeireira-sao-luiz")
+    
+    # Constrói o custom_domain para gerar URLs públicas limpas do Supabase
+    # Ex: cgoyqzedyqpzrdijtwxa.supabase.co/storage/v1/object/public/madeireira-sao-luiz
+    _custom_domain = f"{SUPABASE_URL.replace('https://', '').replace('http://', '')}/storage/v1/object/public/{BUCKET_NAME}" if SUPABASE_URL else None
+
     # Backend S3 para Supabase Storage
     STORAGES = {
         "default": {
@@ -111,12 +118,13 @@ if USE_SUPABASE_STORAGE:
             "OPTIONS": {
                 "access_key": os.environ.get("AWS_ACCESS_KEY_ID"),
                 "secret_key": os.environ.get("AWS_SECRET_ACCESS_KEY"),
-                "bucket_name": os.environ.get("AWS_STORAGE_BUCKET_NAME", "madereira-sao-luiz"),
+                "bucket_name": BUCKET_NAME,
                 "endpoint_url": os.environ.get("AWS_S3_ENDPOINT_URL"),
                 "region_name": os.environ.get("AWS_S3_REGION_NAME", "sa-east-1"),
                 "file_overwrite": False,
                 "default_acl": "public-read",
-                "custom_domain": None,
+                "custom_domain": _custom_domain,
+                "querystring_auth": False,
                 "url_protocol": "https:",
             },
         },
@@ -125,8 +133,6 @@ if USE_SUPABASE_STORAGE:
         },
     }
     # URL pública das mídias no Supabase Storage
-    SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
-    BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "madereira-sao-luiz")
     MEDIA_URL = f"{SUPABASE_URL}/storage/v1/object/public/{BUCKET_NAME}/"
     MEDIA_ROOT = ""  # Sem armazenamento local quando usando Supabase
 else:
