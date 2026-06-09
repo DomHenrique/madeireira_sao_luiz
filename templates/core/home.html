@@ -422,13 +422,27 @@
     <h2 id="cta-title">Pronto para começar sua obra?</h2>
     <p>Entre em contato agora e receba um orçamento personalizado sem compromisso.</p>
     <div class="d-flex flex-wrap gap-3 justify-content-center">
+      {% if matriz and matriz.whatsapp %}
+      <a href="https://wa.me/{{ matriz.whatsapp|cut:' '|cut:'-'|cut:'('|cut:')'|cut:'+' }}?text=Olá! Gostaria de um orçamento para minha obra."
+         class="btn-primary-cta" target="_blank" rel="noopener noreferrer" id="cta-whatsapp-final">
+        <i class="bi bi-whatsapp"></i> Solicitar Orçamento pelo WhatsApp
+      </a>
+      {% else %}
       <a href="https://wa.me/5500000000000?text=Olá! Gostaria de um orçamento para minha obra."
          class="btn-primary-cta" target="_blank" rel="noopener noreferrer" id="cta-whatsapp-final">
         <i class="bi bi-whatsapp"></i> Solicitar Orçamento pelo WhatsApp
       </a>
+      {% endif %}
+      
+      {% if matriz and matriz.telefone %}
+      <a href="tel:{{ matriz.telefone|cut:' '|cut:'-'|cut:'('|cut:')' }}" class="btn-outline-cta" id="cta-phone">
+        <i class="bi bi-telephone"></i> Ligar Agora
+      </a>
+      {% else %}
       <a href="tel:+550000000000" class="btn-outline-cta" id="cta-phone">
         <i class="bi bi-telephone"></i> Ligar Agora
       </a>
+      {% endif %}
     </div>
   </div>
 </section>
