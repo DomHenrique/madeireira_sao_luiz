@@ -42,3 +42,22 @@ def products(request, slug=None):
         "active_category": active_category,
     }
     return render(request, "core/products.html", context)
+
+
+def product_detail(request, slug):
+    """Página de detalhes de um único produto, com galeria de imagens."""
+    product = get_object_or_404(Product.objects.select_related("category").prefetch_related("gallery_images"), slug=slug, active=True)
+    
+    # Produtos relacionados da mesma categoria (excluindo o atual)
+    related_products = []
+    if product.category:
+        related_products = Product.objects.filter(
+            category=product.category, 
+            active=True
+        ).exclude(id=product.id)[:4]
+
+    context = {
+        "product": product,
+        "related_products": related_products,
+    }
+    return render(request, "core/product_detail.html", context)

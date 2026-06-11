@@ -209,10 +209,8 @@
                   <span class="consult">Consulte-nos</span>
                 {% endif %}
               </div>
-              <a href="https://wa.me/5500000000000?text=Olá! Tenho interesse no produto: {{ product.name }}"
-                 class="product-card__cta" target="_blank" rel="noopener noreferrer"
-                 id="product-cta-{{ product.pk }}">
-                <i class="bi bi-whatsapp me-1"></i> Pedir
+              <a href="{% url 'core:product_detail' product.slug %}" class="product-card__cta" id="product-cta-{{ product.pk }}">
+                Ver Detalhes <i class="bi bi-arrow-right ms-1"></i>
               </a>
             </div>
           </div>

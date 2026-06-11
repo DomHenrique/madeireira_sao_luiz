@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ product.meta_title|default:product.name }} | Madereira São Luiz{% endblock %}
+{% block meta_description %}{{ product.meta_description|default:product.description|truncatechars:150 }}{% endblock %}
+
+{% block content %}
+<!-- BREADCRUMBS -->
+<section class="bg-light py-3 border-bottom">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-decoration-none text-muted">Início</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'core:products' %}" class="text-decoration-none text-muted">Produtos</a></li>
+        {% if product.category %}
+        <li class="breadcrumb-item"><a href="{{ product.category.get_absolute_url }}" class="text-decoration-none text-muted">{{ product.category.name }}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<section class="py-5" style="background-color: var(--color-surface);">
+  <div class="container">
+    <div class="row gx-5">
+      
+      <!-- GALERIA DE FOTOS (ESQUERDA) -->
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="product-gallery">
+          <!-- Imagem Principal -->
+          <div class="main-image-container mb-3 overflow-hidden rounded shadow-sm position-relative" style="background-color: #fff; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+            {% if product.is_promotion %}
+              <span class="badge bg-danger position-absolute top-0 start-0 m-3 z-3 px-3 py-2 fs-6 rounded-pill">Oferta</span>
+            {% endif %}
+            <img src="{{ product.image.url }}" id="mainGalleryImage" alt="{{ product.name }}" class="img-fluid" style="max-height: 100%; width: auto; object-fit: contain;">
+          </div>
+          
+          <!-- Miniaturas -->
+          {% if product.gallery_images.all %}
+          <div class="thumbnails-container d-flex gap-2 overflow-auto pb-2">
+            <!-- Miniatura da Imagem Principal -->
+            <div class="thumbnail rounded border border-2 border-warning shadow-sm cursor-pointer" onclick="changeMainImage(this, '{{ product.image.url }}')" style="width: 80px; height: 80px; flex-shrink: 0; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid" style="max-height: 100%; object-fit: contain;">
+            </div>
+            
+            <!-- Miniaturas Extras -->
+            {% for extra_img in product.gallery_images.all %}
+            <div class="thumbnail rounded border opacity-75 cursor-pointer" onclick="changeMainImage(this, '{{ extra_img.image.url }}')" style="width: 80px; height: 80px; flex-shrink: 0; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;">
+              <img src="{{ extra_img.image.url }}" alt="Foto {{ forloop.counter }} - {{ product.name }}" class="img-fluid" style="max-height: 100%; object-fit: contain;">
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- INFORMAÇÕES DO PRODUTO (DIREITA) -->
+      <div class="col-lg-6">
+        {% if product.category %}
+        <span class="badge bg-light text-dark border mb-2 px-3 py-2">{{ product.category.name }}</span>
+        {% endif %}
+        
+        <h1 class="display-5 fw-bold text-dark mb-3" style="font-family: var(--font-heading);">{{ product.name }}</h1>
+        
+        <div class="price-box mb-4 p-4 rounded" style="background-color: #fff; border-left: 4px solid var(--color-primary);">
+          {% if product.price or product.promotional_price %}
+            {% if product.has_discount %}
+              <p class="text-muted text-decoration-line-through mb-0 fs-5">De: R$ {{ product.price }}</p>
+              <h2 class="text-danger fw-bold mb-0 display-6">
+                R$ {{ product.promotional_price }} <span class="fs-5 text-muted fw-normal">/ {{ product.unit }}</span>
+              </h2>
+              <span class="badge bg-danger mt-2">Economize {{ product.discount_percentage }}%</span>
+            {% else %}
+              <h2 class="text-dark fw-bold mb-0 display-6">
+                R$ {{ product.price }} <span class="fs-5 text-muted fw-normal">/ {{ product.unit }}</span>
+              </h2>
+            {% endif %}
+          {% else %}
+            <h2 class="text-dark fw-bold mb-0 fs-2">Preço sob consulta</h2>
+            <p class="text-muted mb-0">Entre em contato para saber valores e disponibilidade.</p>
+          {% endif %}
+        </div>
+
+        <div class="description-box mb-5">
+          <h4 class="fw-bold mb-3">Sobre o Produto</h4>
+          <div class="text-muted" style="line-height: 1.8;">
+            {{ product.description|linebreaks }}
+          </div>
+        </div>
+
+        <div class="cta-box bg-white p-4 rounded shadow-sm border">
+          <p class="fw-bold mb-3 fs-5">Interessado neste produto?</p>
+          <p class="text-muted small mb-3">Fale com um de nossos especialistas no WhatsApp e tire todas as suas dúvidas rapidamente.</p>
+          {% url 'core:product_detail' product.slug as product_url %}
+          <a href="https://wa.me/555199999999?text=Olá, Madereira São Luiz! Tenho interesse no produto *{{ product.name }}* e gostaria de mais informações." 
+             target="_blank" rel="noopener noreferrer" 
+             class="btn btn-success btn-lg w-100 fw-bold d-flex align-items-center justify-content-center gap-2">
+            <i class="bi bi-whatsapp fs-4"></i> Solicitar Orçamento
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SCRIPT DA GALERIA -->
+<script>
+  function changeMainImage(element, newImageUrl) {
+    // Troca a imagem principal
+    document.getElementById('mainGalleryImage').src = newImageUrl;
+    
+    // Remove a classe de ativo (border-warning) de todas as miniaturas
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    thumbnails.forEach(t => {
+      t.classList.remove('border-warning', 'border-2', 'shadow-sm');
+      t.classList.add('opacity-75');
+    });
+    
+    // Adiciona a classe ativo na miniatura clicada
+    element.classList.remove('opacity-75');
+    element.classList.add('border-warning', 'border-2', 'shadow-sm');
+  }
+</script>
+
+{% endblock %}

@@ -158,6 +158,7 @@ class Product(models.Model):
         verbose_name="Categoria",
     )
     name = models.CharField("Nome do Produto", max_length=200)
+    slug = models.SlugField("Slug", unique=True, null=True, blank=True)
     description = models.TextField("Descrição")
     price = models.DecimalField(
         "Preço (R$)", max_digits=10, decimal_places=2,
@@ -196,6 +197,12 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        if self.slug:
+            return reverse('core:product_detail', kwargs={'slug': self.slug})
+        return "#"
+
     @property
     def display_price(self):
         """Retorna o preço formatado para exibição."""
@@ -212,3 +219,20 @@ class Product(models.Model):
         if self.has_discount:
             return int((1 - self.promotional_price / self.price) * 100)
         return 0
+
+
+class ProductImage(models.Model):
+    """
+    Imagens adicionais do produto (Galeria).
+    """
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="gallery_images", verbose_name="Produto")
+    image = models.ImageField("Imagem Extra", upload_to="products/gallery/")
+    order = models.PositiveIntegerField("Ordem", default=0)
+
+    class Meta:
+        verbose_name = "Imagem da Galeria"
+        verbose_name_plural = "Imagens da Galeria"
+        ordering = ["order"]
+
+    def __str__(self):
+        return f"Imagem Extra de {self.product.name}"

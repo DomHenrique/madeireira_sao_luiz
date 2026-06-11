@@ -140,6 +140,14 @@ class CategoryAdmin(admin.ModelAdmin):
     )
 
 
+from .models import Banner, Category, Product, Testimonial, ProductImage
+
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    extra = 1
+    max_num = 5
+    fields = ('image', 'order')
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
@@ -150,9 +158,11 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ("active", "is_featured", "is_promotion", "category")
     search_fields = ("name", "description")
     autocomplete_fields = ("category",)
+    prepopulated_fields = {"slug": ("name",)}
+    inlines = [ProductImageInline]
     fieldsets = (
         ("Informações do Produto", {
-            "fields": ("name", "category", "description", "image")
+            "fields": ("name", "slug", "category", "description", "image")
         }),
         ("Preços", {
             "fields": ("price", "promotional_price", "unit"),
