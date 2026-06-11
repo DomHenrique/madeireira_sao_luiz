@@ -107,7 +107,9 @@
         <div class="d-flex gap-3 mt-3">
           <a href="#" class="text-warning fs-5" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
           <a href="#" class="text-warning fs-5" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="text-warning fs-5" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          {% if matriz and matriz.whatsapp %}
+          <a href="https://wa.me/{{ matriz.whatsapp|cut:' '|cut:'-'|cut:'('|cut:')'|cut:'+' }}" class="text-warning fs-5" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="bi bi-whatsapp"></i></a>
+          {% endif %}
         </div>
       </div>
 
@@ -143,6 +145,9 @@
           {% endif %}
           {% if matriz.whatsapp %}
           <li class="mt-2"><i class="bi bi-whatsapp text-warning me-2"></i>{{ matriz.whatsapp }}</li>
+          {% endif %}
+          {% if matriz.email %}
+          <li class="mt-2"><i class="bi bi-envelope-fill text-warning me-2"></i>{{ matriz.email }}</li>
           {% endif %}
           {% if matriz.business_hours %}
           <li class="mt-2"><i class="bi bi-clock-fill text-warning me-2"></i>{{ matriz.business_hours|linebreaksbr }}</li>

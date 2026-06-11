@@ -37,7 +37,11 @@
             <div class="container">
               <div class="hero-text">
                 <p class="eyebrow">Madereira São Luiz</p>
+                {% if forloop.first %}
                 <h1>{{ banner.title }}</h1>
+                {% else %}
+                <h2 style="font-size: clamp(var(--fs-3xl), 5vw, var(--fs-5xl)); font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: var(--space-4);">{{ banner.title }}</h2>
+                {% endif %}
                 {% if banner.subtitle %}
                 <p>{{ banner.subtitle }}</p>
                 {% endif %}
@@ -76,8 +80,8 @@
       <div class="container">
         <div class="hero-text">
           <p class="eyebrow">Bem-vindo</p>
-          <h1>Madeiras de Qualidade<br>para Sua Obra</h1>
-          <p>Tradição e excelência em madeiras para construção civil, marcenaria e acabamentos.</p>
+          <h1>Madeiras e Materiais de Construção com Tradição em Tupandi</h1>
+          <p>A Madeireira São Luiz é a melhor opção para realizar sua obra! Da madeira bruta aos acabamentos, oferecemos qualidade garantida e segurança para o seu lar.</p>
           <a href="{% url 'core:products' %}" class="btn-primary-cta" id="hero-cta-default">
             Ver Produtos <i class="bi bi-arrow-right"></i>
           </a>
@@ -110,7 +114,7 @@
       <div class="col-6 col-md-3">
         <div class="stat-item">
           <span class="stat-item__number">200+</span>
-          <span class="stat-item__label">Produtos disponíveis</span>
+          <span class="stat-item__label">Produtos para sua obra</span>
         </div>
       </div>
       <div class="col-6 col-md-3">
@@ -131,8 +135,8 @@
 <section class="section-pad-sm" aria-labelledby="categories-title">
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="section-title centered" id="categories-title">Nossas Categorias</h2>
-      <p class="section-subtitle mx-auto">Encontre exatamente o que você precisa para sua obra.</p>
+      <h2 class="section-title centered" id="categories-title">Soluções Completas em Materiais de Construção</h2>
+      <p class="section-subtitle mx-auto">Encontre os melhores materiais para cada etapa do seu projeto de construção, reforma ou marcenaria.</p>
     </div>
     <div class="row g-4 justify-content-center">
       {% for category in categories %}
@@ -162,8 +166,8 @@
   <div class="container">
     <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between mb-5 gap-3">
       <div>
-        <h2 class="section-title mb-0" id="featured-title">Produtos em Destaque</h2>
-        <p class="section-subtitle mt-3">Seleção especial com as melhores ofertas da semana.</p>
+        <h2 class="section-title mb-0" id="featured-title">Produtos em Destaque para Sua Obra</h2>
+        <p class="section-subtitle mt-3">Seleção especial de materiais de construção com preços exclusivos na Madeireira São Luiz.</p>
       </div>
       <a href="{% url 'core:products' %}" class="btn-outline-cta flex-shrink-0" id="see-all-products-btn">
         Ver Todos <i class="bi bi-arrow-right"></i>
@@ -220,35 +224,35 @@
 <section class="section-pad-sm" style="background: var(--color-surface);" aria-labelledby="diferenciais-title">
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="section-title centered" id="diferenciais-title">Por que escolher a São Luiz?</h2>
+      <h2 class="section-title centered" id="diferenciais-title">Por que somos a melhor escolha do Vale do Caí?</h2>
     </div>
     <div class="row g-4 text-center">
       <div class="col-md-3">
         <div class="p-4">
           <i class="bi bi-patch-check-fill text-warning fs-1 mb-3 d-block"></i>
           <h5 style="font-family:var(--font-heading); font-weight:700;">Qualidade Certificada</h5>
-          <p class="text-muted small">Produtos selecionados com rigoroso controle de qualidade.</p>
+          <p class="text-muted small">Madeiras selecionadas e materiais das melhores marcas.</p>
         </div>
       </div>
       <div class="col-md-3">
         <div class="p-4">
           <i class="bi bi-truck text-warning fs-1 mb-3 d-block"></i>
           <h5 style="font-family:var(--font-heading); font-weight:700;">Entrega Rápida</h5>
-          <p class="text-muted small">Entregamos na obra com agilidade e segurança.</p>
+          <p class="text-muted small">Frota própria e agilidade na entrega direto na sua obra.</p>
         </div>
       </div>
       <div class="col-md-3">
         <div class="p-4">
           <i class="bi bi-tag-fill text-warning fs-1 mb-3 d-block"></i>
-          <h5 style="font-family:var(--font-heading); font-weight:700;">Melhor Preço</h5>
-          <p class="text-muted small">Preços competitivos e condições especiais para obra.</p>
+          <h5 style="font-family:var(--font-heading); font-weight:700;">Variedade Completa</h5>
+          <p class="text-muted small">Tudo num só lugar, facilitando a logística da sua reforma.</p>
         </div>
       </div>
       <div class="col-md-3">
         <div class="p-4">
           <i class="bi bi-people-fill text-warning fs-1 mb-3 d-block"></i>
           <h5 style="font-family:var(--font-heading); font-weight:700;">Atendimento Especializado</h5>
-          <p class="text-muted small">Nossa equipe está pronta para te ajudar a escolher.</p>
+          <p class="text-muted small">Profissionais diretos e focados em ajudar no seu projeto.</p>
         </div>
       </div>
     </div>
@@ -263,20 +267,25 @@
 <section class="section-pad section-dark" aria-labelledby="testimonials-title">
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="section-title centered" id="testimonials-title">O que nossos clientes dizem</h2>
+      <h2 class="section-title centered" id="testimonials-title">Aprovado por Construtores e Famílias de Tupandi e Região</h2>
       <p class="section-subtitle mx-auto" style="color: rgba(247,244,239,0.65);">
-        A satisfação dos nossos clientes é nossa maior recompensa.
+        A satisfação dos nossos clientes é a prova do nosso compromisso.
       </p>
     </div>
     <div class="row g-4">
       {% for testimonial in testimonials %}
       <div class="col-md-6 col-lg-4">
-        <article class="testimonial-card" id="testimonial-{{ testimonial.pk }}">
-          <div class="testimonial-card__stars" aria-label="{{ testimonial.rating }} estrelas">
+        <article class="testimonial-card" id="testimonial-{{ testimonial.pk }}" itemscope itemtype="https://schema.org/Review">
+          <div itemprop="itemReviewed" itemscope itemtype="https://schema.org/LocalBusiness">
+            <meta itemprop="name" content="Madeireira São Luiz">
+          </div>
+          <div class="testimonial-card__stars" aria-label="{{ testimonial.rating }} estrelas" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+            <meta itemprop="ratingValue" content="{{ testimonial.rating }}">
+            <meta itemprop="bestRating" content="5">
             {% for star in testimonial.stars_filled %}⭐{% endfor %}
           </div>
-          <p class="testimonial-card__text">"{{ testimonial.text }}"</p>
-          <footer class="testimonial-card__author">
+          <p class="testimonial-card__text" itemprop="reviewBody">"{{ testimonial.text }}"</p>
+          <footer class="testimonial-card__author" itemprop="author" itemscope itemtype="https://schema.org/Person">
             {% if testimonial.photo %}
             <img src="{{ testimonial.photo.url }}" alt="{{ testimonial.name }}" class="testimonial-card__avatar" />
             {% else %}
@@ -285,7 +294,7 @@
             </div>
             {% endif %}
             <div>
-              <div class="testimonial-card__name">{{ testimonial.name }}</div>
+              <div class="testimonial-card__name" itemprop="name">{{ testimonial.name }}</div>
               {% if testimonial.city %}
               <div class="testimonial-card__city"><i class="bi bi-geo-alt me-1"></i>{{ testimonial.city }}</div>
               {% endif %}
@@ -311,7 +320,7 @@
     <!-- Navegação por Abas (quando há mais de uma unidade) -->
     <div class="text-center mb-4">
       <p class="eyebrow" style="color: #c98a6c;">NOSSAS LOJAS</p>
-      <h2 class="section-title centered" id="location-title" style="text-transform: uppercase;">ONDE NOS ENCONTRAR</h2>
+      <h2 class="section-title centered" id="location-title" style="text-transform: uppercase;">VISITE NOSSA LOJA E FIQUE À VONTADE</h2>
     </div>
     <ul class="nav nav-pills justify-content-center mb-5" id="locationTabs" role="tablist">
       {% for unidade in unidades %}
@@ -347,7 +356,9 @@
                 </div>
                 <div class="location-info__text">
                   <strong>Endereço</strong>
-                  <p>{{ unidade.endereco }}<br>{{ unidade.cidade }} - {{ unidade.estado }}<br>{{ unidade.cep }}</p>
+                  <address style="margin-bottom: 0; font-style: normal;">
+                    {{ unidade.endereco }}<br>{{ unidade.cidade }} - {{ unidade.estado }}<br>{{ unidade.cep }}
+                  </address>
                 </div>
               </div>
 
@@ -419,8 +430,8 @@
 ══════════════════════════════════════════ -->
 <section class="cta-banner" aria-labelledby="cta-title">
   <div class="container">
-    <h2 id="cta-title">Pronto para começar sua obra?</h2>
-    <p>Entre em contato agora e receba um orçamento personalizado sem compromisso.</p>
+    <h2 id="cta-title">Pronto para começar sua obra com o pé direito?</h2>
+    <p>Fale com a equipe da São Luiz pelo WhatsApp. Orçamento ágil, direto ao ponto e focado na sua necessidade.</p>
     <div class="d-flex flex-wrap gap-3 justify-content-center">
       {% if matriz and matriz.whatsapp %}
       <a href="https://wa.me/{{ matriz.whatsapp|cut:' '|cut:'-'|cut:'('|cut:')'|cut:'+' }}?text=Olá! Gostaria de um orçamento para minha obra."
