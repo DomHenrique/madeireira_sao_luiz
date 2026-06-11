@@ -122,6 +122,16 @@ class CategoryAdmin(admin.ModelAdmin):
     list_editable = ("order",)
     prepopulated_fields = {"slug": ("name",)}
     search_fields = ("name",)
+    fieldsets = (
+        ("Informações Básicas", {
+            "fields": ("name", "slug", "icon", "order")
+        }),
+        ("SEO (Otimização de Busca)", {
+            "fields": ("meta_title", "meta_description"),
+            "classes": ("collapse",),
+            "description": "Preencha para personalizar como esta categoria aparece nos resultados do Google."
+        }),
+    )
 
 
 @admin.register(Product)
