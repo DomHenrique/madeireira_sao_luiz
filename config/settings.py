@@ -121,7 +121,7 @@ if USE_SUPABASE_STORAGE:
     # Backend S3 para Supabase Storage
     STORAGES = {
         "default": {
-            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+            "BACKEND": "core.storage.SupabaseSafeS3Storage",
             "OPTIONS": {
                 "access_key": os.environ.get("AWS_ACCESS_KEY_ID"),
                 "secret_key": os.environ.get("AWS_SECRET_ACCESS_KEY"),
