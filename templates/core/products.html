@@ -87,9 +87,15 @@
                   <span class="consult">Consulte-nos</span>
                 {% endif %}
               </div>
-              <a href="https://wa.me/5500000000000?text=Olá! Tenho interesse no produto: {{ product.name }}"
+              {% if matriz and matriz.whatsapp %}
+              <a href="https://wa.me/{{ matriz.whatsapp|cut:' '|cut:'-'|cut:'('|cut:')'|cut:'+' }}?text=Olá! Tenho interesse no produto: {{ product.name }}"
                  class="product-card__cta" target="_blank" rel="noopener noreferrer"
                  id="product-cta-{{ product.pk }}">
+              {% else %}
+              <a href="https://wa.me/?text=Olá! Tenho interesse no produto: {{ product.name }}"
+                 class="product-card__cta" target="_blank" rel="noopener noreferrer"
+                 id="product-cta-{{ product.pk }}">
+              {% endif %}
                 <i class="bi bi-whatsapp me-1"></i> Pedir
               </a>
             </div>
