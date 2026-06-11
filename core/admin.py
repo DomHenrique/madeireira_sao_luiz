@@ -18,7 +18,7 @@ from django.urls import reverse
 def custom_delete_selected(modeladmin, request, queryset):
     return delete_selected(modeladmin, request, queryset)
 
-custom_delete_selected.icon = "fas fa-trash-alt"
+custom_delete_selected.icon = "fas fa-trash"
 custom_delete_selected.classes = "btn-danger"
 
 @admin.register(Banner)
@@ -41,10 +41,10 @@ class BannerAdmin(admin.ModelAdmin):
         delete_url = reverse('admin:core_banner_delete', args=[obj.pk])
         return format_html(
             '<a class="btn btn-sm btn-info" href="{}" title="Editar">'
-            '<i class="fas fa-edit"></i>'
+            '<i class="fas fa-pencil-alt"></i>'
             '</a>&nbsp;'
             '<a class="btn btn-sm btn-danger" href="{}" title="Excluir">'
-            '<i class="fas fa-trash-alt"></i>'
+            '<i class="fas fa-trash"></i>'
             '</a>',
             edit_url, delete_url
         )
