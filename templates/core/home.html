@@ -31,19 +31,25 @@
       {% for banner in banners %}
       <div class="carousel-item {% if forloop.first %}active{% endif %}">
         <div class="hero-slide">
-          <img src="{{ banner.image.url }}" alt="{{ banner.title }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" />
+          {% if not banner.title and banner.link %}
+          <a href="{{ banner.link }}" class="full-banner-link" aria-label="Ir para a oferta do banner" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;"></a>
+          {% endif %}
+          
+          <img src="{{ banner.image.url }}" alt="{{ banner.title|default:'Banner Promocional' }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" />
+          
+          {% if banner.title %}
           <div class="hero-overlay" aria-hidden="true"></div>
           <div class="hero-content">
             <div class="container">
               <div class="hero-text">
-                <p class="eyebrow">Madereira São Luiz</p>
+                <p class="eyebrow" style="color: {{ banner.text_color|default:'#FFFFFF' }}">Madereira São Luiz</p>
                 {% if forloop.first %}
-                <h1>{{ banner.title }}</h1>
+                <h1 style="color: {{ banner.text_color|default:'#FFFFFF' }}">{{ banner.title }}</h1>
                 {% else %}
-                <h2 style="font-size: clamp(var(--fs-3xl), 5vw, var(--fs-5xl)); font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: var(--space-4);">{{ banner.title }}</h2>
+                <h2 style="font-size: clamp(var(--fs-3xl), 5vw, var(--fs-5xl)); font-weight: 800; color: {{ banner.text_color|default:'#FFFFFF' }}; line-height: 1.15; margin-bottom: var(--space-4);">{{ banner.title }}</h2>
                 {% endif %}
                 {% if banner.subtitle %}
-                <p>{{ banner.subtitle }}</p>
+                <p style="color: {{ banner.text_color|default:'#FFFFFF' }}">{{ banner.subtitle }}</p>
                 {% endif %}
                 {% if banner.link %}
                 <a href="{{ banner.link }}" class="btn-primary-cta" id="hero-cta-{{ forloop.counter }}">
@@ -53,6 +59,7 @@
               </div>
             </div>
           </div>
+          {% endif %}
         </div>
       </div>
       {% endfor %}

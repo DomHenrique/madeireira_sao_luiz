@@ -9,6 +9,8 @@ from django.utils.html import format_html, mark_safe
 from .models import Banner, Category, Product, Testimonial
 
 
+from django.forms.widgets import TextInput
+
 @admin.register(Banner)
 class BannerAdmin(admin.ModelAdmin):
     list_display = ("title", "preview_image", "order", "active", "created_at")
@@ -17,14 +19,18 @@ class BannerAdmin(admin.ModelAdmin):
     search_fields = ("title", "subtitle")
     ordering = ("order",)
 
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        if db_field.name == 'text_color':
+            kwargs['widget'] = TextInput(attrs={'type': 'color', 'style': 'height: 40px; width: 60px; padding: 0; cursor: pointer;'})
+        return super().formfield_for_dbfield(db_field, request, **kwargs)
+
     fieldsets = (
         ("📝 Conteúdo do Banner", {
             "description": (
-                "O título e o subtítulo serão sobrepostos à imagem no lado esquerdo, "
-                "com fundo escuro para garantir legibilidade. "
-                "Use textos curtos e impactantes."
+                "O título e o subtítulo serão sobrepostos à imagem no lado esquerdo. "
+                "Caso não haja título, a imagem inteira se torna o link."
             ),
-            "fields": ("title", "subtitle"),
+            "fields": ("title", "subtitle", "text_color"),
         }),
         ("🖼️ Imagem do Hero", {
             "description": mark_safe(

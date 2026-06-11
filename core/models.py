@@ -8,6 +8,8 @@ from django.db import models
 from django.urls import reverse
 
 
+from django.core.exceptions import ValidationError
+
 class Banner(models.Model):
     """
     Carrossel rotativo da página inicial.
@@ -17,9 +19,11 @@ class Banner(models.Model):
     title = models.CharField(
         "Título",
         max_length=200,
+        blank=True,
+        null=True,
         help_text=(
-            "Será exibido em destaque sobre a imagem. "
-            "Use textos curtos e diretos (até 8 palavras) para melhor legibilidade."
+            "Opcional. Se não for preenchido, o link do banner será obrigatório, "
+            "e toda a imagem será clicável."
         ),
     )
     subtitle = models.CharField(
@@ -30,6 +34,12 @@ class Banner(models.Model):
             "Texto complementar ao título — máximo 2 linhas. "
             "Será exibido abaixo do título, ainda sobre a imagem."
         ),
+    )
+    text_color = models.CharField(
+        "Cor do Texto",
+        max_length=7,
+        default="#FFFFFF",
+        help_text="Código HEX da cor do texto (ex: #FFFFFF para branco, #000000 para preto, #FF0000 para vermelho).",
     )
     image = models.ImageField(
         "Imagem do Banner",
@@ -48,11 +58,18 @@ class Banner(models.Model):
             "então garanta contraste em toda a imagem."
         ),
     )
-    link = models.URLField("Link (CTA)", blank=True, help_text="URL para onde o botão do banner levará")
-    link_text = models.CharField("Texto do Botão", max_length=80, default="Saiba Mais")
+    link = models.URLField("Link (CTA)", blank=True, help_text="URL para onde o banner levará. Obrigatório se não houver Título.")
+    link_text = models.CharField("Texto do Botão", max_length=80, default="Saiba Mais", blank=True, help_text="Se o título estiver vazio, este botão será ignorado e toda a imagem será clicável.")
     active = models.BooleanField("Ativo", default=True)
     order = models.PositiveIntegerField("Ordem", default=0, help_text="Banners com menor número aparecem primeiro")
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        super().clean()
+        if not self.title and not self.link:
+            raise ValidationError({
+                'link': 'O link é OBRIGATÓRIO quando o banner não possui um título.'
+            })
 
     class Meta:
         verbose_name = "Banner"
