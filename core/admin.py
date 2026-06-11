@@ -11,13 +11,44 @@ from .models import Banner, Category, Product, Testimonial
 
 from django.forms.widgets import TextInput
 
+from django.contrib.admin.actions import delete_selected
+from django.urls import reverse
+
+@admin.action(description="Excluir itens selecionados")
+def custom_delete_selected(modeladmin, request, queryset):
+    return delete_selected(modeladmin, request, queryset)
+
+custom_delete_selected.icon = "fas fa-trash-alt"
+custom_delete_selected.classes = "btn-danger"
+
 @admin.register(Banner)
 class BannerAdmin(admin.ModelAdmin):
-    list_display = ("title", "preview_image", "order", "active", "created_at")
+    list_display = ("title", "preview_image", "order", "active", "created_at", "actions_row")
     list_editable = ("order", "active")
     list_filter = ("active",)
     search_fields = ("title", "subtitle")
     ordering = ("order",)
+    actions = [custom_delete_selected]
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+
+    def actions_row(self, obj):
+        edit_url = reverse('admin:core_banner_change', args=[obj.pk])
+        delete_url = reverse('admin:core_banner_delete', args=[obj.pk])
+        return format_html(
+            '<a class="btn btn-sm btn-info" href="{}" title="Editar">'
+            '<i class="fas fa-edit"></i>'
+            '</a>&nbsp;'
+            '<a class="btn btn-sm btn-danger" href="{}" title="Excluir">'
+            '<i class="fas fa-trash-alt"></i>'
+            '</a>',
+            edit_url, delete_url
+        )
+    actions_row.short_description = "Ações"
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         if db_field.name == 'text_color':
