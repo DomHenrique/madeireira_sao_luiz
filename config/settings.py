@@ -129,7 +129,7 @@ if USE_SUPABASE_STORAGE:
                 "endpoint_url": os.environ.get("AWS_S3_ENDPOINT_URL"),
                 "region_name": os.environ.get("AWS_S3_REGION_NAME", "sa-east-1"),
                 "file_overwrite": False,
-                "default_acl": "public-read",
+                "default_acl": None,
                 "custom_domain": _custom_domain,
                 "querystring_auth": False,
                 "url_protocol": "https:",
