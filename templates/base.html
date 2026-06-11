@@ -127,10 +127,11 @@
       <div class="col-sm-6 col-lg-2">
         <h6>Produtos</h6>
         <ul>
-          <li><a href="{% url 'core:category_products' slug='madeira-bruta' %}">Madeira Bruta</a></li>
-          <li><a href="{% url 'core:category_products' slug='beneficiada' %}">Beneficiada</a></li>
-          <li><a href="{% url 'core:category_products' slug='pisos' %}">Pisos</a></li>
-          <li><a href="{% url 'core:category_products' slug='acessorios' %}">Acessórios</a></li>
+          {% for category in footer_categories %}
+          <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+          {% empty %}
+          <li><a href="{% url 'core:products' %}">Ver Catálogo</a></li>
+          {% endfor %}
         </ul>
       </div>
 
