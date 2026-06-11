@@ -126,7 +126,7 @@ if USE_SUPABASE_STORAGE:
                 "access_key": os.environ.get("AWS_ACCESS_KEY_ID"),
                 "secret_key": os.environ.get("AWS_SECRET_ACCESS_KEY"),
                 "bucket_name": BUCKET_NAME,
-                "endpoint_url": os.environ.get("AWS_S3_ENDPOINT_URL"),
+                "endpoint_url": os.environ.get("AWS_S3_ENDPOINT_URL", "").rstrip("/"),
                 "region_name": os.environ.get("AWS_S3_REGION_NAME", "sa-east-1"),
                 "file_overwrite": False,
                 "default_acl": None,
@@ -134,6 +134,7 @@ if USE_SUPABASE_STORAGE:
                 "querystring_auth": False,
                 "url_protocol": "https:",
                 "signature_version": "s3v4",
+                "addressing_style": "path",
             },
         },
         "staticfiles": {
