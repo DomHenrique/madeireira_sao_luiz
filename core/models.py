@@ -77,7 +77,7 @@ class Banner(models.Model):
         ordering = ["order", "-created_at"]
 
     def __str__(self):
-        return self.title
+        return self.title if self.title else f"Banner Clicável (Sem Título) #{self.pk}"
 
 
 class Testimonial(models.Model):
