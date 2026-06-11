@@ -135,6 +135,10 @@ if USE_SUPABASE_STORAGE:
                 "url_protocol": "https:",
                 "signature_version": "s3v4",
                 "addressing_style": "path",
+                "config_kwargs": {
+                    "signature_version": "s3v4",
+                    "s3": {"addressing_style": "path"},
+                },
             },
         },
         "staticfiles": {
