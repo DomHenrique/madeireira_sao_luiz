@@ -40,10 +40,10 @@ class BannerAdmin(admin.ModelAdmin):
         edit_url = reverse('admin:core_banner_change', args=[obj.pk])
         delete_url = reverse('admin:core_banner_delete', args=[obj.pk])
         return format_html(
-            '<a class="btn btn-sm btn-info" href="{}" title="Editar">'
+            '<a class="btn btn-sm btn-info" style="width: 32px !important; height: 32px !important; min-height: 32px !important; padding: 0 !important; display: inline-flex !important; align-items: center; justify-content: center; border-radius: 6px; margin-right: 4px;" href="{}" title="Editar">'
             '<i class="fas fa-pencil-alt"></i>'
-            '</a>&nbsp;'
-            '<a class="btn btn-sm btn-danger" href="{}" title="Excluir">'
+            '</a>'
+            '<a class="btn btn-sm btn-danger" style="width: 32px !important; height: 32px !important; min-height: 32px !important; padding: 0 !important; display: inline-flex !important; align-items: center; justify-content: center; border-radius: 6px;" href="{}" title="Excluir">'
             '<i class="fas fa-trash"></i>'
             '</a>',
             edit_url, delete_url
