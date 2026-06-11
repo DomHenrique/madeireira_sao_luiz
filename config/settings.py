@@ -133,6 +133,7 @@ if USE_SUPABASE_STORAGE:
                 "custom_domain": _custom_domain,
                 "querystring_auth": False,
                 "url_protocol": "https:",
+                "signature_version": "s3v4",
             },
         },
         "staticfiles": {
