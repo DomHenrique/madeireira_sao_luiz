@@ -319,7 +319,7 @@
     {% if unidades|length > 1 %}
     <!-- Navegação por Abas (quando há mais de uma unidade) -->
     <div class="text-center mb-4">
-      <p class="eyebrow" style="color: #c98a6c;">NOSSAS LOJAS</p>
+      <p class="eyebrow" style="color: var(--color-primary);">NOSSAS LOJAS</p>
       <h2 class="section-title centered" id="location-title" style="text-transform: uppercase;">VISITE NOSSA LOJA E FIQUE À VONTADE</h2>
     </div>
     <ul class="nav nav-pills justify-content-center mb-5" id="locationTabs" role="tablist">
@@ -340,7 +340,7 @@
         {% if unidades|length == 1 %}
         <!-- Títulos customizados só aparecem se houver apenas 1 unidade -->
         <div class="text-center mb-5">
-          <p class="eyebrow" style="color: #c98a6c;">{{ unidade.title_eyebrow }}</p>
+          <p class="eyebrow" style="color: var(--color-primary);">{{ unidade.title_eyebrow }}</p>
           <h2 class="section-title centered" id="location-title-{{ unidade.id }}" style="text-transform: uppercase;">{{ unidade.title_main|safe }}</h2>
         </div>
         {% endif %}

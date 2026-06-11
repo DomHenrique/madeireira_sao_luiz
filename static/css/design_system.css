@@ -889,8 +889,8 @@ h1, h2, h3, h4, h5, h6 {
 .location-info__icon {
   width: 40px;
   height: 40px;
-  background-color: rgba(201, 138, 108, 0.15); /* Cor de cobre suave baseada no layout */
-  color: #c98a6c;
+  background-color: rgba(220, 111, 0, 0.15); /* Fundo com opacidade baseado no laranja da marca */
+  color: var(--color-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -926,7 +926,7 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #c98a6c;
+  background-color: var(--color-primary);
   color: #fff;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
@@ -936,7 +936,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-location-route:hover {
-  background-color: #b57a5e;
+  background-color: var(--color-primary-dark);
   color: #fff;
 }
 
