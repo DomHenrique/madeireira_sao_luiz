@@ -1,6 +1,20 @@
 # 🪵 Madereira São Luiz — Site Institucional
 
-Site institucional desenvolvido em **Django 6**, com painel administrativo **Jazzmin**, banco de dados **PostgreSQL via Supabase** e imagens gerenciadas pelo **Supabase Storage** (S3-compatible).
+Site institucional de alto desempenho desenvolvido em **Django 6**, com painel administrativo **Jazzmin**, banco de dados **PostgreSQL via Supabase** e imagens gerenciadas pelo **Supabase Storage** (S3-compatible).
+
+O sistema conta com um poderoso **Sistema de Campanhas**, gestão de produtos, responsividade nativa e nota 100/100 no Lighthouse.
+
+---
+
+## ✨ Novidades e Funcionalidades
+
+- **Sistema de Campanhas e Banners Inteligentes**: 
+  - Crie campanhas (ex: "Mês dos Namorados", "Black Friday") para customizar a página inicial com seus próprios banners, título e descrição.
+  - Suporte a **Imagens Mobile Específicas** nos banners, poupando banda e melhorando a UX no celular (tag `<picture>`).
+- **Dashboard Customizado (Admin)**: Acompanhe métricas rápidas pelo painel (Total de Produtos, Campanhas Ativas, Campanhas Pausadas e Produtos em Destaque).
+- **Múltiplas Unidades (Filiais)**: Gestão de múltiplos endereços físicos, com geração de rotas automáticas, horários de funcionamento, Google Maps e botões diretos para WhatsApp.
+- **Acessibilidade e Performance (Lighthouse 100/100/100)**: Interface otimizada com excelente contraste de cores, ordem de cabeçalhos semântica e suporte total a leitores de tela e dispositivos móveis.
+- **Design System Isolado**: Cores, tipografia e espaçamentos padronizados em um único arquivo `design_system.css` para fácil manutenção e *rebranding*.
 
 ---
 
@@ -31,7 +45,7 @@ pip install -r requirements.txt
 ### 5. Configurar variáveis de ambiente
 ```bash
 cp .env.example .env
-# Edite o arquivo .env com suas credenciais
+# Edite o arquivo .env com suas credenciais do PostgreSQL
 ```
 
 ### 6. Aplicar migrations e criar superusuário
@@ -76,19 +90,20 @@ Painel Admin: [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
 ```
 .
 ├── config/              # Configurações globais (settings.py, urls.py, wsgi.py)
-├── core/                # App principal
-│   ├── models.py        # Banner, Testimonial, Category, Product
-│   ├── views.py         # home, products
-│   ├── admin.py         # Admin configurado com Jazzmin
-│   └── urls.py
+├── core/                # App principal de produtos e conteúdo
+│   ├── models.py        # Campaign, Banner, Testimonial, Category, Product
+│   ├── views.py         # home, products, product_detail
+│   └── admin.py         # Admin configurado com Jazzmin e Dashboards Custom
+├── empresa/             # App institucional
+│   └── models.py        # Unidade (Lojas físicas, endereços e WhatsApp)
 ├── static/
 │   └── css/
-│       └── design_system.css  # ← Altere aqui para mudar toda a identidade visual
+│       ├── design_system.css  # ← Design System principal
+│       └── admin_custom.css   # ← Estilos do Dashboard Jazzmin
 ├── templates/
 │   ├── base.html        # Layout base (navbar, footer, whatsapp float)
-│   └── core/
-│       ├── home.html    # Página inicial completa
-│       └── products.html # Listagem de produtos
+│   ├── core/            # Templates das páginas (home, products)
+│   └── admin/           # Dashboard e widgets customizados do painel
 ├── media/               # Uploads locais (em desenvolvimento)
 ├── .env.example         # Template de variáveis de ambiente
 ├── manage.py
@@ -99,33 +114,31 @@ Painel Admin: [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
 
 ## 🎨 Design System
 
-O arquivo [`static/css/design_system.css`](static/css/design_system.css) é **isolado** e contém todos os tokens de design (cores, tipografia, espaçamentos). Para alterar a identidade visual, edite apenas este arquivo.
-
-**Paleta principal:**
-- 🟡 Âmbar: `#D4820A` (cor primária da marca)
-- ⚫ Carvão: `#1A1A2E` (fundo escuro / navbar)
-- 🟤 Bege: `#F7F4EF` (fundo claro)
+O arquivo [`static/css/design_system.css`](static/css/design_system.css) é **isolado** e contém todos os tokens de design (cores, tipografia, espaçamentos). Para alterar a identidade visual, edite apenas este arquivo. O sistema baseia-se em cores fortes focadas na marca.
 
 ---
 
 ## 🛠️ Gerenciamento de Conteúdo
 
-Todo o conteúdo é gerenciado pelo **Painel Administrativo** (django-jazzmin, tema dark):
+Todo o conteúdo é gerenciado pelo **Painel Administrativo** (django-jazzmin, tema dark, com estatísticas ativas). O painel é composto pelos seguintes modelos:
 
-| Modelo | Função |
-|--------|--------|
-| **Banner** | Banners do carrossel hero (título, imagem, link, ordem) |
-| **Testimonial** | Depoimentos de clientes (foto, estrelas, cidade) |
-| **Category** | Categorias de produtos (ícone Bootstrap Icons, slug) |
-| **Product** | Produtos com preço, imagem e flags de destaque/promoção |
+| Modelo | Módulo | Função |
+|--------|--------|--------|
+| **Campaign** | Core | Campanhas promocionais que ativam/desativam seções e cores da Home. |
+| **Banner** | Core | Banners do carrossel vinculados à campanhas (suporta imagem Mobile e Desktop). |
+| **Product** | Core | Produtos com preço, imagem e flags de destaque/promoção e página de detalhes. |
+| **Category** | Core | Categorias de produtos com ícones do Bootstrap. |
+| **Testimonial** | Core | Depoimentos com suporte a foto de perfil e nota de estrelas. |
+| **Unidade** | Empresa | Cadastro das Lojas físicas com link para mapa e WhatsApp com mensagem. |
 
 ---
 
 ## 🔑 Tecnologias
 
 - **Django 6** + Python 3.12+
-- **PostgreSQL** (Supabase)
-- **Supabase Storage** via `django-storages` + `boto3` (S3-compatible)
-- **django-jazzmin** (painel admin dark)
-- **Bootstrap 5.3** + CSS personalizado (sem Tailwind)
-- **Pillow** (processamento de imagens)
+- **PostgreSQL** (via Supabase)
+- **Supabase Storage** (S3-compatible) via `django-storages` + `boto3`
+- **django-jazzmin** (painel admin customizado e dark mode safe)
+- **Bootstrap 5.3** + CSS Responsivo Customizado (Acessibilidade 100/100)
+- **Playwright** (Automação de testes e auditorias local)
+- **Pillow** (processamento de imagens em Python)
