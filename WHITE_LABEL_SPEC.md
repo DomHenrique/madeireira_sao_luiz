@@ -28,6 +28,16 @@ Antes de iniciar o código, defina estas variáveis para a nova empresa:
    - `Primary Light`: `[COR_HEXADECIMAL]` (Tom mais claro)
    - `Accent`: `[COR_HEXADECIMAL]` (Cor secundária)
 4. **Tipografia**: `[GOOGLE_FONT_PRIMARIA]` e `[GOOGLE_FONT_SECUNDARIA]`
+5. **Dados do Superusuário**:
+   - `Admin Username`: `[USERNAME]`
+   - `Admin Email`: `[EMAIL_ADMIN]`
+   - `Admin Password`: `[SENHA_FORTE]`
+6. **Dados da Primeira Unidade (Matriz)**: A IA deve exigir todos estes dados antes de rodar as migrations finais:
+   - `Endereço Completo`, `Cidade`, `Estado`, `CEP`
+   - `Telefone Fixo` e `WhatsApp`
+   - `E-mail de Contato`
+   - `Horário de Funcionamento`
+   - `Link do Google Maps (Iframe)` e `Link de Rota do Google Maps`
 
 ---
 
@@ -45,6 +55,8 @@ Antes de escrever código, a infraestrutura deve ser provisionada:
 1. Inicie um projeto Django padrão (`django-admin startproject config .`).
 2. Instale as dependências: `django`, `django-jazzmin`, `django-storages`, `boto3`, `psycopg2-binary`, `pillow`, `python-dotenv`.
 3. Configure o `settings.py` para conectar ao banco do Supabase e ao Storage configurados na Fase 1.
+4. Execute as migrations iniciais (`python manage.py migrate`).
+5. Crie o Superusuário usando os dados informados na seção de variáveis (utilize `python manage.py createsuperuser --noinput` e defina a senha via shell, ou crie interativamente).
 
 ### Fase 3: Aplicativo "Empresa" (Gestão de Filiais)
 1. Crie o app `empresa`.
@@ -54,6 +66,7 @@ Antes de escrever código, a infraestrutura deve ser provisionada:
    - Horários de funcionamento (TextField).
    - Links: Rota do Google Maps (para botão "Traçar Rota") e URL do Iframe do Mapa (para embutir no site).
    - Booleano `is_matriz` (Apenas uma pode ser matriz, usar no `save()` para garantir exclusividade).
+3. Após gerar as migrations (`makemigrations` e `migrate`), **Crie imediatamente a Primeira Unidade (Matriz)** no banco de dados (via `manage.py shell` ou Data Migration) usando os dados coletados na Seção 2. Isso garante que a Home do site (botões de rota, contato e rodapé) funcione sem erros de cara.
 
 ### Fase 4: Aplicativo "Core" (Gestão de Conteúdo e Catálogo)
 1. Crie o app `core`.
