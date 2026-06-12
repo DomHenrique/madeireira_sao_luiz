@@ -35,7 +35,12 @@
           <a href="{{ banner.link }}" class="full-banner-link" aria-label="Ir para a oferta do banner" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;"></a>
           {% endif %}
           
-          <img src="{{ banner.image.url }}" alt="{{ banner.title|default:'Banner Promocional' }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" />
+          <picture>
+            {% if banner.mobile_image %}
+            <source media="(max-width: 768px)" srcset="{{ banner.mobile_image.url }}">
+            {% endif %}
+            <img src="{{ banner.image.url }}" alt="{{ banner.title|default:'Banner Promocional' }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" style="width: 100%; height: 100%; object-fit: cover;" />
+          </picture>
           
           {% if banner.title %}
           <div class="hero-overlay" aria-hidden="true"></div>
@@ -173,8 +178,8 @@
   <div class="container">
     <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between mb-5 gap-3">
       <div>
-        <h2 class="section-title mb-0" id="featured-title">Produtos em Destaque para Sua Obra</h2>
-        <p class="section-subtitle mt-3">Seleção especial de materiais de construção com preços exclusivos na Madeireira São Luiz.</p>
+        <h2 class="section-title mb-0" id="featured-title">{{ featured_title }}</h2>
+        <p class="section-subtitle mt-3">{{ featured_subtitle }}</p>
       </div>
       <a href="{% url 'core:products' %}" class="btn-outline-cta flex-shrink-0" id="see-all-products-btn">
         Ver Todos <i class="bi bi-arrow-right"></i>
@@ -235,28 +240,28 @@
       <div class="col-md-3">
         <div class="p-4">
           <i class="bi bi-patch-check-fill text-warning fs-1 mb-3 d-block"></i>
-          <h5 style="font-family:var(--font-heading); font-weight:700;">Qualidade Certificada</h5>
+          <h2 class="h5" style="font-family:var(--font-heading); font-weight:700;">Qualidade Certificada</h2>
           <p class="text-muted small">Madeiras selecionadas e materiais das melhores marcas.</p>
         </div>
       </div>
       <div class="col-md-3">
         <div class="p-4">
           <i class="bi bi-truck text-warning fs-1 mb-3 d-block"></i>
-          <h5 style="font-family:var(--font-heading); font-weight:700;">Entrega Rápida</h5>
+          <h2 class="h5" style="font-family:var(--font-heading); font-weight:700;">Entrega Rápida</h2>
           <p class="text-muted small">Frota própria e agilidade na entrega direto na sua obra.</p>
         </div>
       </div>
       <div class="col-md-3">
         <div class="p-4">
           <i class="bi bi-tag-fill text-warning fs-1 mb-3 d-block"></i>
-          <h5 style="font-family:var(--font-heading); font-weight:700;">Variedade Completa</h5>
+          <h2 class="h5" style="font-family:var(--font-heading); font-weight:700;">Variedade Completa</h2>
           <p class="text-muted small">Tudo num só lugar, facilitando a logística da sua reforma.</p>
         </div>
       </div>
       <div class="col-md-3">
         <div class="p-4">
           <i class="bi bi-people-fill text-warning fs-1 mb-3 d-block"></i>
-          <h5 style="font-family:var(--font-heading); font-weight:700;">Atendimento Especializado</h5>
+          <h2 class="h5" style="font-family:var(--font-heading); font-weight:700;">Atendimento Especializado</h2>
           <p class="text-muted small">Profissionais diretos e focados em ajudar no seu projeto.</p>
         </div>
       </div>
@@ -412,7 +417,7 @@
 
           <div class="location-map">
             {% if unidade.mapa_url %}
-            <iframe src="{{ unidade.mapa_url }}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="{{ unidade.mapa_url }}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de localização da {{ unidade.nome }}"></iframe>
             {% else %}
             <div class="map-placeholder d-flex align-items-center justify-content-center bg-light text-muted w-100 h-100 rounded-4">
               <p>Configure o link do mapa da unidade "{{ unidade.nome }}" no painel administrativo.</p>

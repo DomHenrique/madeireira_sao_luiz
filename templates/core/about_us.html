@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Sobre Nós | Madeireira São Luiz{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="section section-dark pt-5 pb-5">
+    <div class="container text-center py-5">
+        <h1 class="display-4 fw-bold text-white mb-3">Sobre Nós</h1>
+        <p class="lead text-light opacity-75">Tradição, qualidade e respeito pelo seu projeto.</p>
+    </div>
+</section>
+
+<!-- Content Section -->
+<section class="section bg-light py-5">
+    <div class="container py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="badge bg-primary px-3 py-2 rounded-pill mb-3">Nossa História</span>
+                <h2 class="display-5 fw-bold mb-4 text-dark">Madeireira São Luiz</h2>
+                <p class="text-secondary fs-5 mb-4">
+                    Localizada no coração de <strong>Tupandi, Rio Grande do Sul</strong>, a Madeireira São Luiz construiu uma trajetória sólida fornecendo materiais de construção e madeiras de alta qualidade para clientes, construtores e empresas de toda a região.
+                </p>
+                <p class="text-secondary fs-5 mb-4">
+                    Acreditamos que cada obra é a realização de um sonho. Por isso, nosso compromisso vai além de apenas vender produtos: oferecemos um atendimento consultivo, pontualidade nas entregas e um portfólio completo para garantir que a sua construção ou reforma tenha o melhor resultado possível.
+                </p>
+                <div class="d-flex gap-3 mt-4">
+                    <a href="https://api.whatsapp.com/send?phone=5551984660349" target="_blank" class="btn btn-primary btn-lg rounded-pill px-4">
+                        <i class="bi bi-whatsapp me-2"></i>Fale Conosco
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="{% static 'img/placeholder_store.jpg' %}" alt="Madeireira São Luiz - Loja" class="img-fluid rounded-4 shadow-lg" onerror="this.src='https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800&auto=format&fit=crop';">
+                    <!-- Decorator -->
+                    <div class="position-absolute bottom-0 start-0 translate-middle-x mb-5 ms-4 bg-white p-4 rounded-4 shadow-sm border" style="max-width: 250px;">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-star-fill text-warning fs-5 me-1"></i>
+                            <i class="bi bi-star-fill text-warning fs-5 me-1"></i>
+                            <i class="bi bi-star-fill text-warning fs-5 me-1"></i>
+                            <i class="bi bi-star-fill text-warning fs-5 me-1"></i>
+                            <i class="bi bi-star-fill text-warning fs-5"></i>
+                        </div>
+                        <p class="mb-0 fw-bold text-dark small">"Excelente atendimento e materiais de primeira linha!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Location & Map Section -->
+<section class="section py-5 bg-white">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold text-dark">Onde Estamos</h2>
+            <p class="text-secondary fs-5">Venha nos fazer uma visita e tomar um café com a gente.</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card h-100 border-0 shadow-sm bg-light rounded-4 p-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-circle me-3">
+                                <i class="bi bi-geo-alt-fill fs-4"></i>
+                            </div>
+                            <div>
+                                <h4 class="h5 fw-bold mb-1">Endereço</h4>
+                                <p class="text-secondary mb-0">Avenida Salvador, 564<br>Centro, Tupandi - RS<br>CEP: 95775-000</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-circle me-3">
+                                <i class="bi bi-telephone-fill fs-4"></i>
+                            </div>
+                            <div>
+                                <h4 class="h5 fw-bold mb-1">Contato</h4>
+                                <p class="text-secondary mb-0">(51) 3635-8074<br>(51) 98466-0349</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-circle me-3">
+                                <i class="bi bi-clock-fill fs-4"></i>
+                            </div>
+                            <div>
+                                <h4 class="h5 fw-bold mb-1">Horário de Atendimento</h4>
+                                <p class="text-secondary mb-0">Seg a Sex: 08h às 18h<br>Sábados: 08h às 12h</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=Madeireira+São+Luiz+Tupandi+RS&hl=pt-BR&z=17&output=embed" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; min-height: 400px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

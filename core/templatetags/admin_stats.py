@@ -1,5 +1,5 @@
 from django import template
-from core.models import Product, Category, Banner
+from core.models import Product, Category, Banner, Campaign
 
 register = template.Library()
 
@@ -10,5 +10,7 @@ def get_dashboard_stats():
         'active_products': Product.objects.filter(active=True).count(),
         'promotions': Product.objects.filter(is_promotion=True).count(),
         'categories': Category.objects.count(),
-        'banners': Banner.objects.count()
+        'banners': Banner.objects.count(),
+        'active_campaigns': Campaign.objects.filter(active=True).count(),
+        'inactive_campaigns': Campaign.objects.filter(active=False).count(),
     }

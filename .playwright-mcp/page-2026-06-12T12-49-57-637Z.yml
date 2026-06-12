@@ -1,0 +1,326 @@
+- generic [active] [ref=e1]:
+  - navigation "Navegação principal" [ref=e2]:
+    - generic [ref=e3]:
+      - link "🪵 Madereira São Luiz" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - list [ref=e6]:
+        - listitem [ref=e7]:
+          - link "Início" [ref=e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e9]:
+          - link "Produtos" [ref=e10] [cursor=pointer]:
+            - /url: /produtos/
+        - listitem [ref=e11]:
+          - link "Sobre Nós" [ref=e12] [cursor=pointer]:
+            - /url: /sobre-nos/
+        - listitem [ref=e13]:
+          - link "Contato" [ref=e14] [cursor=pointer]:
+            - /url: "#contato"
+        - listitem [ref=e15]:
+          - link " Orçamento" [ref=e16] [cursor=pointer]:
+            - /url: https://wa.me/5551999999999?text=Olá! Vim pelo site e gostaria de um orçamento.
+            - generic [ref=e17]: 
+            - text: Orçamento
+  - main [ref=e18]:
+    - region "Banners principais" [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - button "Banner 1" [ref=e22] [cursor=pointer]
+          - button "Banner 2" [ref=e23] [cursor=pointer]
+        - generic [ref=e26]:
+          - img "Construindo Com sustentabilidade E Resistência" [ref=e28]
+          - generic [ref=e32]:
+            - paragraph [ref=e33]: Madereira São Luiz
+            - heading "Construindo Com sustentabilidade E Resistência" [level=1] [ref=e34]
+        - button "Anterior" [ref=e35] [cursor=pointer]:
+          - generic [ref=e36]: 
+          - generic [ref=e37]: Anterior
+        - button "Próximo" [ref=e38] [cursor=pointer]:
+          - generic [ref=e39]: 
+          - generic [ref=e40]: Próximo
+    - region "Nossos números" [ref=e41]:
+      - generic [ref=e43]:
+        - generic [ref=e45]:
+          - generic [ref=e46]: 20+
+          - text: Anos de mercado
+        - generic [ref=e48]:
+          - generic [ref=e49]: 5k+
+          - text: Clientes atendidos
+        - generic [ref=e51]:
+          - generic [ref=e52]: 200+
+          - text: Produtos para sua obra
+        - generic [ref=e54]:
+          - generic [ref=e55]: 100%
+          - text: Qualidade garantida
+    - region "Soluções Completas em Materiais de Construção" [ref=e56]:
+      - generic [ref=e57]:
+        - generic [ref=e58]:
+          - heading "Soluções Completas em Materiais de Construção" [level=2] [ref=e59]
+          - paragraph [ref=e60]: Encontre os melhores materiais para cada etapa do seu projeto de construção, reforma ou marcenaria.
+        - generic [ref=e61]:
+          - link " Madeira Bruta" [ref=e63] [cursor=pointer]:
+            - /url: /produtos/categoria/madeira-bruta/
+            - generic [ref=e64]: 
+            - generic [ref=e65]: Madeira Bruta
+          - link " Madeiras Beneficiadas" [ref=e67] [cursor=pointer]:
+            - /url: /produtos/categoria/madeiras-beneficiadas/
+            - generic [ref=e68]: 
+            - generic [ref=e69]: Madeiras Beneficiadas
+          - link " Ferragens e Ferramentas" [ref=e71] [cursor=pointer]:
+            - /url: /produtos/categoria/ferragens-e-ferramentas/
+            - generic [ref=e72]: 
+            - generic [ref=e73]: Ferragens e Ferramentas
+          - link " Pisos e Revestimentos" [ref=e75] [cursor=pointer]:
+            - /url: /produtos/categoria/pisos-e-revestimentos/
+            - generic [ref=e76]: 
+            - generic [ref=e77]: Pisos e Revestimentos
+          - link " Hidráulica" [ref=e79] [cursor=pointer]:
+            - /url: /produtos/categoria/hidraulica/
+            - generic [ref=e80]: 
+            - generic [ref=e81]: Hidráulica
+    - region "Produtos em Destaque para Sua Obra" [ref=e82]:
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - generic [ref=e85]:
+            - heading "Produtos em Destaque para Sua Obra" [level=2] [ref=e86]
+            - paragraph [ref=e87]: Seleção especial de materiais de construção com preços exclusivos na Madeireira São Luiz.
+          - link "Ver Todos " [ref=e88] [cursor=pointer]:
+            - /url: /produtos/
+            - text: Ver Todos
+            - generic [ref=e89]: 
+        - generic [ref=e90]:
+          - article [ref=e92]:
+            - generic [ref=e93]:
+              - img "Pregos 12*27" [ref=e94]
+              - generic [ref=e95]:
+                - generic [ref=e96]: ⭐ Destaque
+                - generic [ref=e97]: 🔥 Promoção
+            - generic [ref=e98]:
+              - heading "Pregos 12*27" [level=3] [ref=e99]
+              - paragraph [ref=e100]: pregos 12*27
+              - generic [ref=e101]:
+                - generic [ref=e102]:
+                  - generic [ref=e103]: R$ 18,00/kg
+                  - generic [ref=e104]: R$ 16,00/kg
+                - link "Ver Detalhes " [ref=e105] [cursor=pointer]:
+                  - /url: /produto/pregos-1227/
+                  - text: Ver Detalhes
+                  - generic [ref=e106]: 
+          - article [ref=e108]:
+            - generic [ref=e109]:
+              - img "Martelo Unha Tramontina" [ref=e110]
+              - generic [ref=e112]: ⭐ Destaque
+            - generic [ref=e113]:
+              - generic [ref=e114]: Ferragens e Ferramentas
+              - heading "Martelo Unha Tramontina" [level=3] [ref=e115]
+              - paragraph [ref=e116]: Martelo unha com cabo de madeira envernizado. Perfeito para uso profissional ou doméstico.
+              - generic [ref=e117]:
+                - generic [ref=e119]: R$ 42,50/un
+                - link "Ver Detalhes " [ref=e120] [cursor=pointer]:
+                  - /url: /produto/martelo-unha-tramontina/
+                  - text: Ver Detalhes
+                  - generic [ref=e121]: 
+          - article [ref=e123]:
+            - generic [ref=e124]:
+              - img "Viga de Garapeira Aparelhada" [ref=e125]
+              - generic [ref=e126]:
+                - generic [ref=e127]: ⭐ Destaque
+                - generic [ref=e128]: 🔥 Promoção
+            - generic [ref=e129]:
+              - generic [ref=e130]: Madeira Bruta
+              - heading "Viga de Garapeira Aparelhada" [level=3] [ref=e131]
+              - paragraph [ref=e132]: Viga super resistente, ideal para telhados e estruturas aparentes. Alta durabilidade contra cupins.
+              - generic [ref=e133]:
+                - generic [ref=e134]:
+                  - generic [ref=e135]: R$ 85,90/metro linear
+                  - generic [ref=e136]: R$ 79,90/metro linear
+                - link "Ver Detalhes " [ref=e137] [cursor=pointer]:
+                  - /url: /produto/viga-de-garapeira-aparelhada/
+                  - text: Ver Detalhes
+                  - generic [ref=e138]: 
+          - article [ref=e140]:
+            - generic [ref=e141]:
+              - img "Torneira" [ref=e142]
+              - generic [ref=e143]:
+                - generic [ref=e144]: ⭐ Destaque
+                - generic [ref=e145]: 🔥 Promoção
+            - generic [ref=e146]:
+              - heading "Torneira" [level=3] [ref=e147]
+              - paragraph [ref=e148]: apenas um teste para uma torneira
+              - generic [ref=e149]:
+                - generic [ref=e150]:
+                  - generic [ref=e151]: R$ 250,00/un
+                  - generic [ref=e152]: R$ 230,00/un
+                - link "Ver Detalhes " [ref=e153] [cursor=pointer]:
+                  - /url: /produto/torneira/
+                  - text: Ver Detalhes
+                  - generic [ref=e154]: 
+    - region "Por que somos a melhor escolha do Vale do Caí?" [ref=e155]:
+      - generic [ref=e156]:
+        - heading "Por que somos a melhor escolha do Vale do Caí?" [level=2] [ref=e158]
+        - generic [ref=e159]:
+          - generic [ref=e161]:
+            - generic [ref=e162]: 
+            - heading "Qualidade Certificada" [level=5] [ref=e163]
+            - paragraph [ref=e164]: Madeiras selecionadas e materiais das melhores marcas.
+          - generic [ref=e166]:
+            - generic [ref=e167]: 
+            - heading "Entrega Rápida" [level=5] [ref=e168]
+            - paragraph [ref=e169]: Frota própria e agilidade na entrega direto na sua obra.
+          - generic [ref=e171]:
+            - generic [ref=e172]: 
+            - heading "Variedade Completa" [level=5] [ref=e173]
+            - paragraph [ref=e174]: Tudo num só lugar, facilitando a logística da sua reforma.
+          - generic [ref=e176]:
+            - generic [ref=e177]: 
+            - heading "Atendimento Especializado" [level=5] [ref=e178]
+            - paragraph [ref=e179]: Profissionais diretos e focados em ajudar no seu projeto.
+    - region "Aprovado por Construtores e Famílias de Tupandi e Região" [ref=e180]:
+      - generic [ref=e181]:
+        - generic [ref=e182]:
+          - heading "Aprovado por Construtores e Famílias de Tupandi e Região" [level=2] [ref=e183]
+          - paragraph [ref=e184]: A satisfação dos nossos clientes é a prova do nosso compromisso.
+        - generic [ref=e185]:
+          - article [ref=e187]:
+            - generic "5 estrelas" [ref=e188]: ⭐⭐⭐⭐⭐
+            - paragraph [ref=e189]: "\"conheci a empresa e adorei\""
+            - generic [ref=e190]:
+              - img "Henrique Carvalho" [ref=e191]
+              - generic [ref=e192]:
+                - generic [ref=e193]: Henrique Carvalho
+                - generic [ref=e194]:
+                  - generic [ref=e195]: 
+                  - text: Xaxim-RS
+          - article [ref=e197]:
+            - generic "5 estrelas" [ref=e198]: ⭐⭐⭐⭐⭐
+            - paragraph [ref=e199]: "\"Sou cliente há 10 anos, super indico a São luiz\""
+            - generic [ref=e200]:
+              - img "Cristina" [ref=e201]
+              - generic [ref=e202]:
+                - generic [ref=e203]: Cristina
+                - generic [ref=e204]:
+                  - generic [ref=e205]: 
+                  - text: Xique-xique BA
+    - region [ref=e206]:
+      - tabpanel [ref=e209]:
+        - generic [ref=e210]:
+          - paragraph [ref=e211]: NOSSA LOCALIZAÇÃO
+          - heading "ONDE NOS ENCONTRAR EM TUPANDI" [level=2] [ref=e212]
+        - generic [ref=e213]:
+          - generic [ref=e214]:
+            - heading "VENHA PRESTIGIAR O EVENTO SEMANA DO PISO" [level=3] [ref=e215]
+            - generic [ref=e216]:
+              - generic [ref=e217]:
+                - generic [ref=e219]: 
+                - generic [ref=e220]:
+                  - strong [ref=e221]: Endereço
+                  - generic [ref=e222]:
+                    - text: Av. Salvador, 564, Tupandi - RS
+                    - text: TUPANDI - RS
+                    - text: 95775-000
+              - generic [ref=e223]:
+                - generic [ref=e225]: 
+                - generic [ref=e226]:
+                  - strong [ref=e227]: Horários
+                  - paragraph [ref=e228]:
+                    - text: "Seg a Qui: 09h às 19:30h"
+                    - text: "Sex: 08:30h às 20h"
+              - generic [ref=e229]:
+                - generic [ref=e231]: 
+                - generic [ref=e232]:
+                  - strong [ref=e233]: Contato
+                  - paragraph [ref=e234]:
+                    - text: "WhatsApp: 5551999999999"
+                    - text: "Tel: (51) 3333-3333"
+            - generic [ref=e235]:
+              - link " Traçar Rota" [ref=e236] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/HeNE3K1JzGGUicxB7
+                - generic [ref=e237]: 
+                - text: Traçar Rota
+              - link " Falar no WhatsApp" [ref=e238] [cursor=pointer]:
+                - /url: https://wa.me/5551999999999?text=Olá! Gostaria de falar com a unidade São Luiz- Centro.
+                - generic [ref=e239]: 
+                - text: Falar no WhatsApp
+          - iframe [ref=e241]
+    - region "Pronto para começar sua obra com o pé direito?" [ref=e242]:
+      - generic [ref=e243]:
+        - heading "Pronto para começar sua obra com o pé direito?" [level=2] [ref=e244]
+        - paragraph [ref=e245]: Fale com a equipe da São Luiz pelo WhatsApp. Orçamento ágil, direto ao ponto e focado na sua necessidade.
+        - generic [ref=e246]:
+          - link " Solicitar Orçamento pelo WhatsApp" [ref=e247] [cursor=pointer]:
+            - /url: https://wa.me/5551999999999?text=Olá! Gostaria de um orçamento para minha obra.
+            - generic [ref=e248]: 
+            - text: Solicitar Orçamento pelo WhatsApp
+          - link " Ligar Agora" [ref=e249] [cursor=pointer]:
+            - /url: tel:5133333333
+            - generic [ref=e250]: 
+            - text: Ligar Agora
+  - contentinfo [ref=e251]:
+    - generic [ref=e252]:
+      - generic [ref=e253]:
+        - generic [ref=e254]:
+          - generic [ref=e255]: 🪵 Madereira São Luiz
+          - paragraph [ref=e256]: Há mais de 20 anos fornecendo madeiras de qualidade para construção civil, marcenaria e acabamentos. Tradição, qualidade e preço justo.
+          - generic [ref=e257]:
+            - link "Instagram" [ref=e258] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e259]: 
+            - link "Facebook" [ref=e260] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e261]: 
+            - link "WhatsApp" [ref=e262] [cursor=pointer]:
+              - /url: https://wa.me/5551999999999
+              - generic [ref=e263]: 
+        - generic [ref=e264]:
+          - heading "Links Rápidos" [level=6] [ref=e265]
+          - list [ref=e266]:
+            - listitem [ref=e267]:
+              - link "Início" [ref=e268] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e269]:
+              - link "Produtos" [ref=e270] [cursor=pointer]:
+                - /url: /produtos/
+            - listitem [ref=e271]:
+              - link "Sobre Nós" [ref=e272] [cursor=pointer]:
+                - /url: /sobre-nos/
+        - generic [ref=e273]:
+          - heading "Produtos" [level=6] [ref=e274]
+          - list [ref=e275]:
+            - listitem [ref=e276]:
+              - link "Madeira Bruta" [ref=e277] [cursor=pointer]:
+                - /url: /produtos/categoria/madeira-bruta/
+            - listitem [ref=e278]:
+              - link "Madeiras Beneficiadas" [ref=e279] [cursor=pointer]:
+                - /url: /produtos/categoria/madeiras-beneficiadas/
+            - listitem [ref=e280]:
+              - link "Ferragens e Ferramentas" [ref=e281] [cursor=pointer]:
+                - /url: /produtos/categoria/ferragens-e-ferramentas/
+            - listitem [ref=e282]:
+              - link "Pisos e Revestimentos" [ref=e283] [cursor=pointer]:
+                - /url: /produtos/categoria/pisos-e-revestimentos/
+            - listitem [ref=e284]:
+              - link "Hidráulica" [ref=e285] [cursor=pointer]:
+                - /url: /produtos/categoria/hidraulica/
+        - generic [ref=e286]:
+          - heading "Contato" [level=6] [ref=e287]
+          - list [ref=e288]:
+            - listitem [ref=e289]:
+              - generic [ref=e290]: 
+              - text: Av. Salvador, 564, Tupandi - RS, TUPANDI - RS
+            - listitem [ref=e291]:
+              - generic [ref=e292]: 
+              - text: (51) 3333-3333
+            - listitem [ref=e293]:
+              - generic [ref=e294]: 
+              - text: "5551999999999"
+            - listitem [ref=e295]:
+              - generic [ref=e296]: 
+              - text: contato@madeireirasaoluiz.com.br
+            - listitem [ref=e297]:
+              - generic [ref=e298]: 
+              - text: "Seg a Qui: 09h às 19:30h"
+              - text: "Sex: 08:30h às 20h"
+      - paragraph [ref=e300]: © 2026 Madereira São Luiz. Todos os direitos reservados.
+  - link "Falar no WhatsApp" [ref=e301] [cursor=pointer]:
+    - /url: https://wa.me/5551999999999?text=Olá! Vim pelo site e gostaria de um orçamento.
+    - generic [ref=e302]: 

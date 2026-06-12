@@ -140,21 +140,18 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Botões ───────────────────────────────────────────────── */
 .btn-primary-cta {
+  background: var(--color-primary-dark);
+  color: #fff;
+  padding: 0.875rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-family: var(--font-heading);
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  background: var(--color-primary);
-  color: #fff;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: var(--fs-base);
-  padding: 0.75rem 1.75rem;
-  border-radius: var(--radius-md);
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-  box-shadow: 0 4px 10px rgba(220, 111, 0, 0.25);
+  gap: 0.5rem;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+  border: 2px solid var(--color-primary-dark);
 }
 
 .btn-primary-cta:hover {
@@ -167,24 +164,23 @@ h1, h2, h3, h4, h5, h6 {
 .btn-outline-cta {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  background: transparent;
-  color: var(--color-primary);
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: var(--fs-base);
-  padding: 0.75rem 1.75rem;
+  font-size: var(--fs-md);
+  color: var(--color-primary-dark);
+  background: transparent;
+  border: 2px solid var(--color-primary-dark);
   border-radius: var(--radius-md);
-  border: 2px solid var(--color-primary);
-  cursor: pointer;
   text-decoration: none;
   transition: all var(--transition-fast);
 }
 
 .btn-outline-cta:hover {
-  background: var(--color-primary);
+  background: var(--color-primary-dark);
   color: #fff;
-  transform: translateY(-2px);
 }
 
 /* ── Navbar ───────────────────────────────────────────────── */
@@ -279,7 +275,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--color-primary-light);
+  color: var(--color-primary-dark);
   margin-bottom: var(--space-3);
 }
 
@@ -327,6 +323,9 @@ h1, h2, h3, h4, h5, h6 {
   height: 10px;
   border-radius: var(--radius-full);
   opacity: 0.5;
+  background-clip: padding-box;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
 }
 .carousel-indicators .active {
   opacity: 1;
@@ -423,7 +422,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   margin-bottom: var(--space-2);
 }
 
@@ -482,7 +481,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .product-card__cta {
-  background: var(--color-primary);
+  background: var(--color-primary-dark);
   color: #fff;
   font-family: var(--font-heading);
   font-weight: 700;
@@ -606,12 +605,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .stat-item__label {
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
   text-transform: uppercase;
-  opacity: 0.85;
-  margin-top: var(--space-2);
+  letter-spacing: 1px;
+  color: #fff;
 }
 
 /* ── Seção de Categorias ──────────────────────────────────── */
@@ -930,13 +928,14 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-primary);
+  background-color: var(--color-primary-dark);
   color: #fff;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
+  border: 2px solid var(--color-primary-dark);
 }
 
 .btn-location-route:hover {
@@ -949,7 +948,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   background-color: #fff;
-  color: #25D366;
+  color: #128C7E;
   border: 1px solid #e5e7eb;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
@@ -959,9 +958,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-location-whatsapp:hover {
-  border-color: #25D366;
+  border-color: #128C7E;
   background-color: rgba(37, 211, 102, 0.05);
-  color: #25D366;
+  color: #128C7E;
 }
 
 /* Responsividade Mobile para a seção Location */

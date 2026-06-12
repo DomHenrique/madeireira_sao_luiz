@@ -3,13 +3,24 @@
 from django.shortcuts import get_object_or_404, render
 
 from empresa.models import Unidade
-from .models import Banner, Category, Product, Testimonial
+from .models import Banner, Category, Product, Testimonial, Campaign
 
 
 def home(request):
     """Página inicial com banners, produtos em destaque e depoimentos."""
-    banners = Banner.objects.filter(active=True).order_by("order")
-    featured_products = Product.objects.filter(active=True, is_featured=True).select_related("category")[:6]
+    active_campaign = Campaign.objects.filter(active=True).first()
+
+    if active_campaign:
+        banners = active_campaign.banners.filter(active=True).order_by("order")
+        featured_products = active_campaign.products.filter(active=True)
+        featured_title = active_campaign.featured_title
+        featured_subtitle = active_campaign.featured_subtitle
+    else:
+        banners = Banner.objects.filter(active=True, campaign__isnull=True).order_by("order")
+        featured_products = Product.objects.filter(active=True, is_featured=True).select_related("category")[:6]
+        featured_title = "Produtos em Destaque para Sua Obra"
+        featured_subtitle = "Seleção especial de materiais de construção com preços exclusivos na Madeireira São Luiz."
+
     testimonials = Testimonial.objects.filter(active=True)[:6]
     categories = Category.objects.all()
     unidades = Unidade.objects.filter(is_active=True).order_by("ordem")
@@ -17,6 +28,8 @@ def home(request):
     context = {
         "banners": banners,
         "featured_products": featured_products,
+        "featured_title": featured_title,
+        "featured_subtitle": featured_subtitle,
         "testimonials": testimonials,
         "categories": categories,
         "unidades": unidades,
@@ -61,3 +74,8 @@ def product_detail(request, slug):
         "related_products": related_products,
     }
     return render(request, "core/product_detail.html", context)
+
+
+def about_us(request):
+    """Página institucional Sobre Nós, com mapa e contatos."""
+    return render(request, "core/about_us.html")

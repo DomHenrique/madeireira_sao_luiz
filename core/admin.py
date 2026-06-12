@@ -6,8 +6,7 @@ Configurado para django-jazzmin com ações e filtros otimizados.
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
 
-from .models import Banner, Category, Product, Testimonial
-
+from .models import Banner, Category, Product, Testimonial, Campaign
 
 from django.forms.widgets import TextInput
 
@@ -23,9 +22,9 @@ custom_delete_selected.classes = "btn-danger"
 
 @admin.register(Banner)
 class BannerAdmin(admin.ModelAdmin):
-    list_display = ("title", "preview_image", "order", "active", "created_at", "actions_row")
+    list_display = ("title", "preview_image", "campaign", "order", "active", "created_at", "actions_row")
     list_editable = ("order", "active")
-    list_filter = ("active",)
+    list_filter = ("active", "campaign")
     search_fields = ("title", "subtitle")
     ordering = ("order",)
     actions = [custom_delete_selected]
@@ -58,57 +57,56 @@ class BannerAdmin(admin.ModelAdmin):
     fieldsets = (
         ("📝 Conteúdo do Banner", {
             "description": (
-                "O título e o subtítulo serão sobrepostos à imagem no lado esquerdo. "
+                "Selecione uma campanha se este banner for exclusivo. O título e o subtítulo serão sobrepostos à imagem no lado esquerdo. "
                 "Caso não haja título, a imagem inteira se torna o link."
             ),
-            "fields": ("title", "subtitle", "text_color"),
+            "fields": ("campaign", "title", "subtitle", "text_color"),
         }),
-        ("🖼️ Imagem do Hero", {
+        ("🖼️ Imagens do Hero", {
             "description": mark_safe(
-                '<div style="'
-                'background: linear-gradient(135deg, #FEF3C7, #FDE68A);'
-                'border: 2px solid #D4820A;'
-                'border-radius: 8px;'
-                'padding: 16px 20px;'
-                'margin-bottom: 12px;'
-                'font-size: 13px;'
-                'line-height: 1.7;'
-                '">'
-                '<strong style="font-size:14px; color:#92400E;">📐 Especificações Técnicas da Imagem</strong><br>'
+                '<div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 12px;">'
+                
+                '<!-- DESKTOP BOX -->'
+                '<div style="flex: 1; min-width: 300px; background: rgba(217, 119, 6, 0.1); '
+                'border: 1px solid #D97706; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.7;">'
+                '<strong style="font-size:14px; color:#D97706;">💻 Imagem Principal (Desktop)</strong><br>'
                 '<table style="margin-top:10px; border-collapse:collapse; width:100%;">'
-                '<tr><td style="padding:4px 12px 4px 0; font-weight:600; color:#78350F; width:180px;">Tamanho ideal</td>'
-                '<td style="color:#1C1C1C;">1920 × 580 px</td></tr>'
-                '<tr><td style="padding:4px 12px 4px 0; font-weight:600; color:#78350F;">Proporção</td>'
-                '<td style="color:#1C1C1C;">16:5 — paisagem bem larga (banner horizontal)</td></tr>'
-                '<tr><td style="padding:4px 12px 4px 0; font-weight:600; color:#78350F;">Mínimo aceitável</td>'
-                '<td style="color:#1C1C1C;">1280 × 400 px</td></tr>'
-                '<tr><td style="padding:4px 12px 4px 0; font-weight:600; color:#78350F;">Formato</td>'
-                '<td style="color:#1C1C1C;">JPG ou WebP (PNG aceito, mas maior)</td></tr>'
+                '<tr><td style="padding:4px 12px 4px 0; font-weight:600; width:100px;">Tamanho</td><td>1920 × 580 px</td></tr>'
+                '<tr><td style="padding:4px 12px 4px 0; font-weight:600;">Proporção</td><td>16:5 (horizontal larga)</td></tr>'
                 '</table>'
-                '<hr style="border:none; border-top:1px solid #FCD34D; margin: 12px 0;">'
-                '<strong style="color:#92400E;">⚠️ Zona de Texto — onde NÃO colocar o assunto principal</strong><br>'
-                '<div style="margin-top:8px; position:relative; background:#E5E7EB; border-radius:6px; '
-                'height:80px; overflow:hidden; border:1px solid #D1D5DB;">'
-                '<div style="position:absolute; left:0; top:0; width:55%; height:100%; '
-                'background:rgba(17,17,24,0.75); display:flex; align-items:center; '
-                'justify-content:center; flex-direction:column; gap:4px;">'
-                '<span style="color:#F5A623; font-size:11px; font-weight:700; letter-spacing:1px;">ZONA DE TEXTO</span>'
-                '<span style="color:rgba(255,255,255,0.7); font-size:10px;">Título · Subtítulo · Botão</span>'
+                '<hr style="border:none; border-top:1px solid rgba(217, 119, 6, 0.3); margin: 12px 0;">'
+                '<strong style="color:#D97706;">⚠️ Zona de Texto</strong><br>'
+                '<div style="margin-top:8px; position:relative; background:rgba(0,0,0,0.1); border-radius:6px; height:60px; overflow:hidden; border:1px solid rgba(217, 119, 6, 0.3);">'
+                '<div style="position:absolute; left:0; top:0; width:55%; height:100%; background:rgba(217, 119, 6, 0.7); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px;">'
+                '<span style="color:#fff; font-size:11px; font-weight:700; letter-spacing:1px; text-shadow: 1px 1px 2px rgba(0,0,0,0.4);">TEXTO (ESQUERDA)</span>'
                 '</div>'
-                '<div style="position:absolute; right:0; top:0; width:45%; height:100%; '
-                'display:flex; align-items:center; justify-content:center;">'
-                '<span style="color:#374151; font-size:11px; font-weight:600; text-align:center;">'
-                '✅ Coloque o assunto<br>principal aqui'
-                '</span>'
+                '<div style="position:absolute; right:0; top:0; width:45%; height:100%; display:flex; align-items:center; justify-content:center;">'
+                '<span style="font-size:11px; font-weight:600; text-align:center;">✅ IMAGEM (DIREITA)</span>'
                 '</div>'
                 '</div>'
-                '<p style="margin-top:10px; margin-bottom:0; color:#92400E; font-size:12px;">'
-                '💡 <strong>Dica:</strong> Prefira imagens com produto ou cena no <strong>lado direito ou centro</strong>. '
-                'Em mobile, o texto é centralizado e cobre toda a largura — garanta contraste em toda a imagem.'
-                '</p>'
+                '</div>'
+
+                '<!-- MOBILE BOX -->'
+                '<div style="flex: 1; min-width: 300px; background: rgba(2, 132, 199, 0.1); '
+                'border: 1px solid #0284C7; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.7;">'
+                '<strong style="font-size:14px; color:#0284C7;">📱 Imagem Específica (Mobile)</strong><br>'
+                '<table style="margin-top:10px; border-collapse:collapse; width:100%;">'
+                '<tr><td style="padding:4px 12px 4px 0; font-weight:600; width:100px;">Tamanho</td><td>800 × 1000 px</td></tr>'
+                '<tr><td style="padding:4px 12px 4px 0; font-weight:600;">Proporção</td><td>4:5 (vertical / retrato)</td></tr>'
+                '</table>'
+                '<hr style="border:none; border-top:1px solid rgba(2, 132, 199, 0.3); margin: 12px 0;">'
+                '<strong style="color:#0284C7;">⚠️ Zona de Texto</strong><br>'
+                '<div style="margin-top:8px; position:relative; background:rgba(0,0,0,0.1); border-radius:6px; height:60px; overflow:hidden; border:1px solid rgba(2, 132, 199, 0.3);">'
+                '<div style="position:absolute; left:0; top:0; width:100%; height:100%; background:rgba(2, 132, 199, 0.7); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px;">'
+                '<span style="color:#fff; font-size:11px; font-weight:700; letter-spacing:1px; text-shadow: 1px 1px 2px rgba(0,0,0,0.4);">TEXTO CENTRALIZADO</span>'
+                '<span style="color:rgba(255,255,255,0.9); font-size:10px; text-shadow: 1px 1px 2px rgba(0,0,0,0.4);">Cobre a imagem. Garanta contraste.</span>'
+                '</div>'
+                '</div>'
+                '</div>'
+
                 '</div>'
             ),
-            "fields": ("image",),
+            "fields": ("image", "mobile_image"),
         }),
         ("🔗 Botão de Ação (CTA)", {
             "description": "Configure o link e o texto do botão que aparece sobre o banner. Deixe em branco para omitir o botão.",
@@ -216,3 +214,31 @@ class ProductAdmin(admin.ModelAdmin):
             return format_html("R$ {}", obj.price)
         return format_html('<em style="color:#888;">Consulte-nos</em>')
     price_display.short_description = "Preço"
+
+class BannerInline(admin.TabularInline):
+    model = Banner
+    extra = 1
+    fields = ('image', 'mobile_image', 'title', 'link', 'order', 'active')
+    show_change_link = True
+
+@admin.register(Campaign)
+class CampaignAdmin(admin.ModelAdmin):
+    list_display = ("name", "active", "featured_title", "created_at")
+    list_editable = ("active",)
+    list_filter = ("active",)
+    search_fields = ("name", "featured_title")
+    filter_horizontal = ("products",)
+    inlines = [BannerInline]
+    fieldsets = (
+        ("Configurações Gerais", {
+            "fields": ("name", "active")
+        }),
+        ("Textos da Área de Destaque", {
+            "fields": ("featured_title", "featured_subtitle"),
+            "description": "Estes textos substituirão os textos padrão da área de produtos em destaque na Home."
+        }),
+        ("Produtos em Destaque", {
+            "fields": ("products",),
+            "description": "Selecione os produtos que devem aparecer em destaque para esta campanha. (Se nenhum produto for selecionado, a área ficará vazia)."
+        }),
+    )

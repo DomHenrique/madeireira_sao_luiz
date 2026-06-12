@@ -56,7 +56,8 @@
              href="{% url 'core:products' %}">Produtos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#sobre">Sobre</a>
+          <a class="nav-link {% if request.resolver_match.url_name == 'about_us' %}active{% endif %}"
+             href="{% url 'core:about_us' %}">Sobre Nós</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#contato">Contato</a>
@@ -115,17 +116,17 @@
 
       <!-- Links rápidos -->
       <div class="col-sm-6 col-lg-2">
-        <h6>Links Rápidos</h6>
+        <div class="footer-heading">Links Rápidos</div>
         <ul>
           <li><a href="{% url 'core:home' %}">Início</a></li>
           <li><a href="{% url 'core:products' %}">Produtos</a></li>
-          <li><a href="#sobre">Sobre Nós</a></li>
+          <li><a href="{% url 'core:about_us' %}">Sobre Nós</a></li>
         </ul>
       </div>
 
       <!-- Produtos -->
       <div class="col-sm-6 col-lg-2">
-        <h6>Produtos</h6>
+        <div class="footer-heading">Produtos</div>
         <ul>
           {% for category in footer_categories %}
           <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
@@ -137,7 +138,7 @@
 
       <!-- Contato -->
       <div class="col-lg-4" id="sobre">
-        <h6>Contato</h6>
+        <div class="footer-heading">Contato</div>
         <ul>
           {% if matriz %}
           <li><i class="bi bi-geo-alt-fill text-warning me-2"></i>{{ matriz.endereco }}, {{ matriz.cidade }} - {{ matriz.estado }}</li>

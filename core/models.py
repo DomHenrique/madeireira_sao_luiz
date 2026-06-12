@@ -10,12 +10,60 @@ from django.urls import reverse
 
 from django.core.exceptions import ValidationError
 
+class Campaign(models.Model):
+    """
+    Campanha para área de destaque na Home (ex: Mês dos Namorados).
+    Substitui a exibição padrão de produtos e banners quando ativa.
+    """
+    name = models.CharField("Nome da Campanha", max_length=100)
+    active = models.BooleanField(
+        "Ativa", 
+        default=False, 
+        help_text="Se marcada, esta campanha substituirá os destaques padrão da página inicial. Apenas a última campanha ativa terá efeito."
+    )
+    featured_title = models.CharField(
+        "Título da Área de Destaque", 
+        max_length=200, 
+        default="Produtos em Destaque para Sua Obra"
+    )
+    featured_subtitle = models.TextField(
+        "Subtítulo da Área de Destaque", 
+        blank=True, 
+        default="Seleção especial de materiais de construção com preços exclusivos na Madeireira São Luiz."
+    )
+    products = models.ManyToManyField(
+        'Product', 
+        blank=True, 
+        verbose_name="Produtos em Destaque", 
+        help_text="Selecione os produtos que farão parte desta campanha."
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Campanha"
+        verbose_name_plural = "Campanhas"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.name
+
+
+
 class Banner(models.Model):
     """
     Carrossel rotativo da página inicial.
     As imagens são armazenadas no Supabase Storage (em produção)
     ou localmente em media/ (em desenvolvimento).
     """
+    campaign = models.ForeignKey(
+        Campaign,
+        on_delete=models.CASCADE,
+        related_name="banners",
+        null=True,
+        blank=True,
+        verbose_name="Campanha",
+        help_text="Selecione a campanha para a qual este banner pertence. Deixe em branco para o banner ser um Padrão (aparecer quando nenhuma campanha estiver ativa)."
+    )
     title = models.CharField(
         "Título",
         max_length=200,
@@ -56,6 +104,17 @@ class Banner(models.Model):
             "Prefira imagens com o assunto principal centralizado ou no lado DIREITO. "
             "Em mobile, o texto é centralizado e cobre maior parte da tela, "
             "então garanta contraste em toda a imagem."
+        ),
+    )
+    mobile_image = models.ImageField(
+        "Imagem Específica para Mobile (Opcional)",
+        upload_to="banners/mobile/",
+        null=True,
+        blank=True,
+        help_text=(
+            "📱 TAMANHO RECOMENDADO: 800 × 1000 px ou 1080 × 1350 px (formato vertical/retrato). "
+            "Se preenchido, esta imagem será usada APENAS em telas de celulares, garantindo melhor legibilidade e visual. "
+            "Se deixado em branco, a imagem principal (desktop) será espremida/ajustada no celular."
         ),
     )
     link = models.URLField("Link (CTA)", blank=True, help_text="URL para onde o banner levará. Obrigatório se não houver Título.")
