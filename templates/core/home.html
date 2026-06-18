@@ -186,10 +186,14 @@
       </a>
     </div>
 
-    <div class="row g-4">
-      {% for product in featured_products %}
-      <div class="col-sm-6 col-lg-4">
-        <article class="product-card" id="product-{{ product.pk }}">
+    <div class="featured-carousel-wrapper">
+      <button class="carousel-nav-btn prev" aria-label="Anterior">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <div class="featured-carousel-track">
+        {% for product in featured_products %}
+        <div>
+          <article class="product-card" id="product-{{ product.pk }}">
           <div class="product-card__image-wrap">
             <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy" />
             <div class="product-card__badges">
@@ -220,8 +224,12 @@
             </div>
           </div>
         </article>
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
+      <button class="carousel-nav-btn next" aria-label="Próximo">
+        <i class="bi bi-chevron-right"></i>
+      </button>
     </div>
   </div>
 </section>
@@ -467,5 +475,55 @@
     </div>
   </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tracks = document.querySelectorAll('.featured-carousel-track');
+  
+  tracks.forEach(track => {
+    let scrollSpeed = 1;
+    let isPaused = false;
+    let animationFrameId;
+    
+    function autoScroll() {
+      if (!isPaused) {
+        track.scrollLeft += scrollSpeed;
+        if (track.scrollLeft >= (track.scrollWidth - track.clientWidth - 1)) {
+           track.scrollLeft = 0;
+        }
+      }
+      animationFrameId = requestAnimationFrame(autoScroll);
+    }
+    
+    animationFrameId = requestAnimationFrame(autoScroll);
+    
+    const pauseScroll = () => { isPaused = true; };
+    const resumeScroll = () => { isPaused = false; };
+    
+    track.addEventListener('mouseenter', pauseScroll);
+    track.addEventListener('mouseleave', resumeScroll);
+    track.addEventListener('touchstart', pauseScroll, {passive: true});
+    track.addEventListener('touchend', resumeScroll);
+    
+    const wrapper = track.closest('.featured-carousel-wrapper');
+    if (wrapper) {
+      const prevBtn = wrapper.querySelector('.carousel-nav-btn.prev');
+      const nextBtn = wrapper.querySelector('.carousel-nav-btn.next');
+      
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => { track.scrollBy({ left: -320, behavior: 'smooth' }); });
+        prevBtn.addEventListener('mouseenter', pauseScroll);
+        prevBtn.addEventListener('mouseleave', resumeScroll);
+      }
+      
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => { track.scrollBy({ left: 320, behavior: 'smooth' }); });
+        nextBtn.addEventListener('mouseenter', pauseScroll);
+        nextBtn.addEventListener('mouseleave', resumeScroll);
+      }
+    }
+  });
+});
+</script>
 
 {% endblock %}
