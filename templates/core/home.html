@@ -35,7 +35,7 @@
           <a href="{{ banner.link }}" class="full-banner-link" aria-label="Ir para a oferta do banner" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;"></a>
           {% endif %}
           
-          <picture>
+          <picture style="width: 100%; height: 100%; display: block;">
             {% if banner.mobile_image %}
             <source media="(max-width: 768px)" srcset="{{ banner.mobile_image.url }}">
             {% endif %}
