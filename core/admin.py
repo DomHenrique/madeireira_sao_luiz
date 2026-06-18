@@ -169,7 +169,7 @@ class CategoryAdmin(admin.ModelAdmin):
     )
 
 
-from .models import Banner, Category, Product, Testimonial, ProductImage
+from .models import Banner, Category, Product, Testimonial, ProductImage, Marca
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
@@ -242,3 +242,16 @@ class CampaignAdmin(admin.ModelAdmin):
             "description": "Selecione os produtos que devem aparecer em destaque para esta campanha. (Se nenhum produto for selecionado, a área ficará vazia)."
         }),
     )
+
+@admin.register(Marca)
+class MarcaAdmin(admin.ModelAdmin):
+    list_display = ("name", "logo_preview", "active", "order")
+    list_editable = ("active", "order")
+    list_filter = ("active",)
+    search_fields = ("name",)
+    
+    def logo_preview(self, obj):
+        if obj.logo:
+            return format_html('<img src="{}" style="height:40px; border-radius:4px;" />', obj.logo.url)
+        return "-"
+    logo_preview.short_description = "Preview"

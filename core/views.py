@@ -3,7 +3,7 @@
 from django.shortcuts import get_object_or_404, render
 
 from empresa.models import Unidade
-from .models import Banner, Category, Product, Testimonial, Campaign
+from .models import Banner, Category, Product, Testimonial, Campaign, Marca
 
 
 def home(request):
@@ -24,6 +24,7 @@ def home(request):
     testimonials = Testimonial.objects.filter(active=True)[:6]
     categories = Category.objects.all()
     unidades = Unidade.objects.filter(is_active=True).order_by("ordem")
+    marcas_destaque = Marca.objects.filter(active=True).order_by("order")
 
     context = {
         "banners": banners,
@@ -33,6 +34,7 @@ def home(request):
         "testimonials": testimonials,
         "categories": categories,
         "unidades": unidades,
+        "marcas_destaque": marcas_destaque,
     }
     return render(request, "core/home.html", context)
 

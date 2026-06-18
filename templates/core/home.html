@@ -169,6 +169,42 @@
 </section>
 {% endif %}
 
+<!-- ════════════════════════════════════════
+  MARCAS EM DESTAQUE (MARQUEE INFINITO)
+══════════════════════════════════════════ -->
+{% if marcas_destaque %}
+<section id="marcas" aria-label="Marcas em Destaque" style="background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
+      <!-- Loop 1 -->
+      {% for marca in marcas_destaque %}
+      <div class="marquee-item">
+        {% if marca.url %}
+        <a href="{{ marca.url }}" target="_blank" rel="noopener noreferrer" title="{{ marca.name }}">
+          <img src="{{ marca.logo.url }}" alt="{{ marca.name }}" loading="lazy">
+        </a>
+        {% else %}
+        <img src="{{ marca.logo.url }}" alt="{{ marca.name }}" loading="lazy" title="{{ marca.name }}">
+        {% endif %}
+      </div>
+      {% endfor %}
+      <!-- Loop 2 (Duplicado para o efeito infinito) -->
+      {% for marca in marcas_destaque %}
+      <div class="marquee-item" aria-hidden="true">
+        {% if marca.url %}
+        <a href="{{ marca.url }}" target="_blank" rel="noopener noreferrer" tabindex="-1">
+          <img src="{{ marca.logo.url }}" alt="{{ marca.name }}" loading="lazy">
+        </a>
+        {% else %}
+        <img src="{{ marca.logo.url }}" alt="{{ marca.name }}" loading="lazy">
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
 
 <!-- ════════════════════════════════════════
   PRODUTOS EM DESTAQUE / PROMOÇÕES

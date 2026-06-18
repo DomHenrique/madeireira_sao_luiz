@@ -295,3 +295,27 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f"Imagem Extra de {self.product.name}"
+
+
+class Marca(models.Model):
+    """
+    Logomarca de uma marca parceira/fornecedora.
+    Serão exibidas no carrossel de marcas na Home e na LP.
+    """
+    name = models.CharField("Nome da Marca", max_length=100)
+    logo = models.ImageField(
+        "Logomarca", 
+        upload_to="marcas/",
+        help_text="Recomendado: Imagens com fundo transparente (PNG) e altura/largura similares. Evite imagens com muito espaço em branco ao redor."
+    )
+    url = models.URLField("Link Opcional", blank=True, help_text="Se preenchido, a logo será clicável e levará a este link.")
+    active = models.BooleanField("Ativa", default=True)
+    order = models.IntegerField("Ordem de Exibição", default=0, help_text="Menores números aparecem primeiro.")
+
+    class Meta:
+        verbose_name = "Marca"
+        verbose_name_plural = "Marcas"
+        ordering = ["order", "name"]
+
+    def __str__(self):
+        return self.name

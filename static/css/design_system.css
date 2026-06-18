@@ -1073,7 +1073,68 @@ h1, h2, h3, h4, h5, h6 {
     display: none; /* Hide manual arrows on mobile, let them swipe */
   }
   .featured-carousel-track > div {
-    width: 280px; /* Slightly smaller on mobile */
+    width: 260px; /* Cards ligeiramente menores no mobile para mostrar um pedaço do próximo */
   }
 }
 
+/* =========================================
+   MARCAS EM DESTAQUE (INFINITE MARQUEE)
+   ========================================= */
+.marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  padding: 2rem 0;
+  background-color: transparent;
+  display: flex; /* flex contain para o track */
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: marquee-scroll 35s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  flex: 0 0 auto;
+  margin: 0 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.6;
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+  filter: grayscale(100%);
+}
+
+.marquee-item:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+.marquee-item img {
+  height: 60px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .marquee-item {
+    margin: 0 1.5rem;
+  }
+  .marquee-item img {
+    height: 45px;
+    max-width: 120px;
+  }
+}
