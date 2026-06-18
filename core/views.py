@@ -19,7 +19,7 @@ def home(request):
         banners = Banner.objects.filter(active=True, campaign__isnull=True).order_by("order")
         featured_products = Product.objects.filter(active=True, is_featured=True).select_related("category")[:6]
         featured_title = "Produtos em Destaque para Sua Obra"
-        featured_subtitle = "Seleção especial de materiais de construção com preços exclusivos na Madeireira São Luiz."
+        featured_subtitle = "Seleção especial de materiais de construção com preços exclusivos na Matcon."
 
     testimonials = Testimonial.objects.filter(active=True)[:6]
     categories = Category.objects.all()

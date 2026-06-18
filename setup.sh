@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ============================================================
 # setup.sh — Script de setup automático
-# Madereira São Luiz
+# Matcon
 # Uso: bash setup.sh
 # ============================================================
 
@@ -13,7 +13,7 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -e "${BOLD}🪵  Madereira São Luiz — Setup Automático${NC}"
+echo -e "${BOLD}🏗️  Matcon — Setup Automático${NC}"
 echo "────────────────────────────────────────────"
 
 # ── 1. Verificar Python 3.12+ ──────────────────────────────

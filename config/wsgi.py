@@ -1,5 +1,5 @@
 """
-WSGI config para produção — Madereira São Luiz
+WSGI config para produção — Matcon
 """
 
 import os

@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  matcon_web:
+    image: python:3.12-slim
+    container_name: matcon_web
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - matcon_static:/app/staticfiles
+    environment:
+      SECRET_KEY: "sua-secret-key-django-aqui"
+      DEBUG: "False"
+      ALLOWED_HOSTS: "matcon.griddmkt360.com.br,localhost,127.0.0.1"
+      DATABASE_URL: "postgresql://usuario:senha@host:porta/banco"
+      SUPABASE_URL: "https://SEU_PROJECT_ID.supabase.co"
+      SUPABASE_ANON_KEY: "sua-anon-key-ou-service-role-key"
+      AWS_ACCESS_KEY_ID: "sua-s3-access-key-id"
+      AWS_SECRET_ACCESS_KEY: "sua-s3-secret-access-key"
+      AWS_STORAGE_BUCKET_NAME: "nome-do-bucket"
+      AWS_S3_ENDPOINT_URL: "https://SEU_PROJECT_ID.storage.supabase.co/storage/v1/s3"
+      AWS_S3_REGION_NAME: "us-west-2"
+      USE_SUPABASE_STORAGE: "True"
+      CSRF_TRUSTED_ORIGINS: "https://matcon.griddmkt360.com.br"
+      CSRF_COOKIE_SECURE: "True"
+      SESSION_COOKIE_SECURE: "True"
+      TRUST_PROXY_SSL: "True"
+    command: >
+      bash -c "
+        apt-get update -qq && apt-get install -y -qq git curl &&
+        rm -rf /tmp/app_src &&
+        git clone https://github.com/SEU_USUARIO/SEU_REPO.git /tmp/app_src &&
+        cp -r /tmp/app_src/. /app/ &&
+        pip install -q -r /app/requirements.txt &&
+        python /app/manage.py collectstatic --noinput &&
+        python /app/manage.py migrate &&
+        exec gunicorn config.wsgi:application --workers 2 --bind 0.0.0.0:8000 --timeout 120 --chdir /app
+      "
+    networks:
+      - portainer_hnperf
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.matcon.rule=Host(`matcon.griddmkt360.com.br`)"
+      - "traefik.http.routers.matcon.entrypoints=websecure"
+      - "traefik.http.routers.matcon.tls=true"
+      - "traefik.http.routers.matcon.tls.certresolver=letsencryptresolver"
+      - "traefik.http.services.matcon.loadbalancer.server.port=8000"
+      - "traefik.http.routers.matcon-http.rule=Host(`matcon.griddmkt360.com.br`)"
+      - "traefik.http.routers.matcon-http.entrypoints=web"
+      - "traefik.http.routers.matcon-http.middlewares=matcon-https@docker"
+      - "traefik.http.middlewares.matcon-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.matcon-https.redirectscheme.permanent=true"
+
+volumes:
+  matcon_static:
+
+networks:
+  portainer_hnperf:
+    external: true

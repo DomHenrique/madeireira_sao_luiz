@@ -1,4 +1,4 @@
-"""URLs raiz do projeto — Madereira São Luiz"""
+"""URLs raiz do projeto — Matcon"""
 
 from django.conf import settings
 from django.conf.urls.static import static

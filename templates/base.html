@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="{% block meta_description %}Madereira São Luiz — Madeiras, pisos e materiais de construção com qualidade e tradição.{% endblock %}" />
-  <title>{% block title %}Madereira São Luiz{% endblock %} | Madeiras & Construção</title>
+  <meta name="description" content="{% block meta_description %}Matcon — Materiais de construção com qualidade e tradição.{% endblock %}" />
+  <title>{% block title %}Matcon{% endblock %} | Materiais &amp; Construção</title>
 
   <!-- SEO e Open Graph -->
   <link rel="canonical" href="{{ request.build_absolute_uri }}" />
-  <meta property="og:title" content="{% block og_title %}Madereira São Luiz | Madeiras & Construção{% endblock %}" />
-  <meta property="og:description" content="{% block og_description %}Madereira São Luiz — Madeiras, pisos e materiais de construção com qualidade e tradição.{% endblock %}" />
+  <meta property="og:title" content="{% block og_title %}Matcon | Materiais &amp; Construção{% endblock %}" />
+  <meta property="og:description" content="{% block og_description %}Matcon — Materiais de construção com qualidade e tradição.{% endblock %}" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Madereira São Luiz" />
+  <meta property="og:site_name" content="Matcon" />
   <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.jpg' %}{% endblock %}" />
 
   <!-- Bootstrap 5.3 CSS -->
@@ -33,7 +33,7 @@
   <div class="container">
     <!-- Brand -->
     <a class="navbar-brand" href="{% url 'core:home' %}">
-      🪵 Madereira São Luiz
+      🏗️ Matcon
     </a>
 
     <!-- Mobile toggle -->
@@ -100,7 +100,7 @@
 
       <!-- Sobre -->
       <div class="col-lg-4">
-        <div class="footer-brand">🪵 Madereira São Luiz</div>
+        <div class="footer-brand">🏗️ Matcon</div>
         <p style="font-size:0.875rem; line-height:1.7;">
           Há mais de 20 anos fornecendo madeiras de qualidade para construção civil,
           marcenaria e acabamentos. Tradição, qualidade e preço justo.
@@ -166,7 +166,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p class="mb-0">© {% now "Y" %} Madereira São Luiz. Todos os direitos reservados.</p>
+      <p class="mb-0">© {% now "Y" %} Matcon. Todos os direitos reservados.</p>
     </div>
   </div>
 </footer>

@@ -1,6 +1,6 @@
 """
 Modelos de dados — App Core
-Madereira São Luiz
+Matcon
 """
 
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -29,7 +29,7 @@ class Campaign(models.Model):
     featured_subtitle = models.TextField(
         "Subtítulo da Área de Destaque", 
         blank=True, 
-        default="Seleção especial de materiais de construção com preços exclusivos na Madeireira São Luiz."
+        default="Seleção especial de materiais de construção com preços exclusivos na Matcon."
     )
     products = models.ManyToManyField(
         'Product', 

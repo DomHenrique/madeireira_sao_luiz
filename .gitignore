@@ -23,6 +23,10 @@ media/
 .env
 !.env.example
 
+# Docker Compose com credenciais reais — NUNCA commitar
+docker-compose.yml
+!docker-compose.example.yml
+
 # IDEs
 .vscode/
 .idea/

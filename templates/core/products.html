@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}{% if active_category and active_category.meta_title %}{{ active_category.meta_title }}{% elif active_category %}{{ active_category.name }} - Produtos{% else %}Produtos{% endif %}{% endblock %}
-{% block meta_description %}{% if active_category and active_category.meta_description %}{{ active_category.meta_description }}{% else %}Catálogo completo de madeiras, pisos e materiais da Madereira São Luiz. Filtre por categoria e encontre o produto ideal para sua obra.{% endif %}{% endblock %}
+{% block meta_description %}{% if active_category and active_category.meta_description %}{{ active_category.meta_description }}{% else %}Catálogo completo de materiais de construção da Matcon. Filtre por categoria e encontre o produto ideal para sua obra.{% endif %}{% endblock %}
 
 {% block content %}
 

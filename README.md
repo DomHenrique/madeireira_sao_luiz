@@ -1,4 +1,4 @@
-# 🪵 Madereira São Luiz — Site Institucional
+# 🏗️ Matcon — Site Institucional
 
 Site institucional de alto desempenho desenvolvido em **Django 6**, com painel administrativo **Jazzmin**, banco de dados **PostgreSQL via Supabase** e imagens gerenciadas pelo **Supabase Storage** (S3-compatible).
 
@@ -27,7 +27,7 @@ O sistema conta com um poderoso **Sistema de Campanhas**, gestão de produtos, r
 ### 2. Clonar o repositório
 ```bash
 git clone <url-do-repositório>
-cd "madereira são luiz"
+cd "matcon"
 ```
 
 ### 3. Criar e ativar o ambiente virtual
@@ -72,7 +72,7 @@ Painel Admin: [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
 3. Cole em `DATABASE_URL` no seu `.env`
 
 ### Storage de Imagens
-1. No Supabase, acesse **Storage** e crie um bucket chamado `madereira-sao-luiz`
+1. No Supabase, acesse **Storage** e crie um bucket chamado `matcon` (ou mantenha o bucket existente `madeireira-sao-luiz` se estiver migrando do sistema anterior)
 2. Configure o bucket como **público** para leitura
 3. Em **Settings → API**, copie:
    - `Project URL` → `SUPABASE_URL`

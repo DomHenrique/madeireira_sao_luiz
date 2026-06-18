@@ -1,5 +1,5 @@
 """
-Django settings - Madereira São Luiz
+Django settings - Matcon
 Utiliza Supabase para banco de dados (PostgreSQL) e Storage (S3-compatible).
 """
 
@@ -115,7 +115,7 @@ if USE_SUPABASE_STORAGE:
     BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "madeireira-sao-luiz")
     
     # Constrói o custom_domain para gerar URLs públicas limpas do Supabase
-    # Ex: cgoyqzedyqpzrdijtwxa.supabase.co/storage/v1/object/public/madeireira-sao-luiz
+    # Ex: cgoyqzedyqpzrdijtwxa.supabase.co/storage/v1/object/public/madeireira-sao-luiz (bucket mantido para não quebrar imagens existentes)
     _custom_domain = f"{SUPABASE_URL.replace('https://', '').replace('http://', '')}/storage/v1/object/public/{BUCKET_NAME}" if SUPABASE_URL else None
 
     # Backend S3 para Supabase Storage
@@ -180,13 +180,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Django Jazzmin — Painel Admin Tema Dark
 # ────────────────────────────────────────────────────────────────────────────
 JAZZMIN_SETTINGS = {
-    "site_title": "Madereira São Luiz",
-    "site_header": "Madereira São Luiz",
-    "site_brand": "🪵 São Luiz",
+    "site_title": "Matcon",
+    "site_header": "Matcon",
+    "site_brand": "🏗️ Matcon",
     "site_logo": None,
     "login_logo": None,
     "welcome_sign": "Bem-vindo ao Painel Administrativo",
-    "copyright": "Madereira São Luiz © 2025",
+    "copyright": "Matcon © 2025",
     "search_model": ["auth.User"],
     "topmenu_links": [
         {"name": "Ver Site", "url": "/", "new_window": True, "icon": "fas fa-eye"},
