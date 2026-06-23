@@ -132,7 +132,7 @@ class BannerAdmin(admin.ModelAdmin):
                 '</div>',
                 obj.image.url,
             )
-        return format_html(
+        return mark_safe(
             '<span style="color:#9CA3AF; font-style:italic;">Sem imagem</span>'
         )
     preview_image.short_description = "Preview (zona de texto)"
@@ -212,7 +212,7 @@ class ProductAdmin(admin.ModelAdmin):
             )
         if obj.price:
             return format_html("R$ {}", obj.price)
-        return format_html('<em style="color:#888;">Consulte-nos</em>')
+        return mark_safe('<em style="color:#888;">Consulte-nos</em>')
     price_display.short_description = "Preço"
 
 class BannerInline(admin.TabularInline):
